@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang Kami - E-Perpus UM</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .about-page {
+    width: 100%;
+    max-width: 430px;
+    padding: 25px 15px 100px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+        .about-heading {
+            margin-bottom: 25px;
+        }
+
+       .about-page {
+    width: 100%;
+    max-width: 430px;
+    padding: 25px 20px 110px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.about-heading {
+    text-align: center;
+    margin: 10px 0 25px;
+}
+
+.about-heading {
+    background: #ffffff;
+    padding: 24px 18px;
+    border-radius: 20px;
+    margin: 10px 0 22px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+}
+
+.about-heading h1 {
+    font-size: 23px;
+    color: #2878cf;
+    margin: 0 0 8px;
+}
+
+.about-heading p {
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    color: #7894bb;
+    margin: 0 0 10px;
+}
+
+.about-heading span {
+    font-size: 13px;
+    color: #777;
+    line-height: 1.6;
+    display: block;
+}
+
+        .about-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    align-items: stretch;
+}
+
+.about-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 175px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.about-icon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 22px;
+    margin-bottom: 13px;
+}
+
+.about-card h3 {
+    font-size: 14px;
+    margin: 0 0 8px;
+    color: #333;
+    line-height: 1.4;
+}
+
+.about-card p {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #777;
+    margin: 0;
+    text-align: left;
+}
+
+        .about-footer {
+            background: #eaf0f8;
+            border-radius: 16px;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .about-footer h3 {
+            color: #49688e;
+            margin: 0 0 8px;
+        }
+
+        .about-footer p {
+            color: #65778e;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        @media (max-width: 480px) {
+            .about-page {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .about-grid {
+                gap: 10px;
+            }
+
+            .about-card {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="about-page">
+
+    <div class="about-heading">
+    <h1>Tentang Kami</h1>
+    <p>E-PERPUS UM</p>
+    <span>Kenali fitur dan layanan perpustakaan digital kami.</span>
+</div>
+
+    <div class="about-grid">
+
+        <div class="about-card">
+            <div class="about-icon" style="background:#e8f0fe;">📚</div>
+            <h3>Koleksi Bacaan</h3>
+            <p>Buku akademik, nonakademik, dan majalah.</p>
+        </div>
+
+        <div class="about-card">
+            <div class="about-icon" style="background:#e8f5ee;">🔎</div>
+            <h3>Pencarian Buku</h3>
+            <p>Temukan bacaan berdasarkan koleksi yang tersedia.</p>
+        </div>
+
+        <div class="about-card">
+            <div class="about-icon" style="background:#fff1e5;">🔖</div>
+            <h3>Koleksi Pribadi</h3>
+            <p>Simpan buku yang ingin dibaca atau dibaca kembali.</p>
+        </div>
+
+        <div class="about-card">
+            <div class="about-icon" style="background:#f0eafe;">📖</div>
+            <h3>Riwayat Membaca</h3>
+            <p>Lihat kembali buku yang pernah diakses.</p>
+        </div>
+
+        <div class="about-card">
+            <div class="about-icon" style="background:#fce8ed;">🕒</div>
+            <h3>Linimasa</h3>
+            <p>Jelajahi aktivitas dan pembaruan seputar bacaan.</p>
+        </div>
+
+        <div class="about-card">
+            <div class="about-icon" style="background:#e5f4f6;">👥</div>
+            <h3>Pengguna</h3>
+            <p>Mahasiswa, dosen, dan sivitas akademika UM.</p>
+        </div>
+
+    </div>
+
+    <div class="about-footer">
+        <h3>E-Perpus UM</h3>
+        <p>Jelajahi koleksi, temukan bacaan, dan simpan buku favoritmu.</p>
+    </div>
+
+</div>
+
+<!-- Navigasi bawah -->
+<div class="bottom-nav">
+    <a href="./home.html" class="nav-item">
+        <div class="nav-icon">⌂</div>
+        <span>Beranda</span>
+    </a>
+
+    <a href="./linimasa.html" class="nav-item">
+        <div class="nav-icon">✥</div>
+        <span>Linimasa</span>
+    </a>
+
+    <a href="./pencarian.html" class="nav-item">
+        <div class="nav-icon">⌕</div>
+        <span>Pencarian</span>
+    </a>
+
+    <a href="./profil.html" class="nav-item active-nav">
+        <div class="nav-icon">●</div>
+        <span>Profil</span>
+    </a>
+</div>
+
+</body>
+</html>

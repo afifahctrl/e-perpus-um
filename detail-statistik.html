@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistik Pendidikan - E-Perpus UM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="detail-body">
+
+<div class="detail-page">
+
+    <!-- HEADER -->
+    <div class="detail-header">
+        <a href="akademik.html">←</a>
+        <h2>Detail Buku</h2>
+    </div>
+
+    <!-- DETAIL MAJALAH -->
+    <div class="detail-content">
+
+        <div class="detail-cover">
+            <img src="images/statistik-pendidikan.jpeg" alt="Majalah Jendela">
+        </div>
+
+        <h1>Statistik Pendidikan</h1>
+
+        <p class="author">Siti Hajaroh & Raehanah</p>
+
+        <!-- INFORMASI BUKU -->
+        <div class="book-data">
+
+            <div>
+                <span>Ulasan</span>
+                <strong>⭐ 5.0 / 5</strong>
+            </div>
+
+            <div>
+                <span>Halaman</span>
+                <strong>238</strong>
+            </div>
+
+            <div>
+                <span>Ukuran File</span>
+                <strong>PDF</strong>
+            </div>
+
+        </div>
+
+        <!-- TOMBOL -->
+        <div class="detail-buttons">
+
+            <button class="read-button"
+    onclick="window.location.href='baca-statistik.html'">
+    Baca Sekarang
+</button>
+
+            <button class="save-button" onclick="simpanBuku()">
+                Simpan
+            </button>
+
+        </div>
+
+        <!-- SINOPSIS -->
+<h2>Sinopsis</h2>
+
+<p class="synopsis">
+    Buku Statistik Pendidikan membahas penerapan ilmu statistika
+    dalam bidang pendidikan. Buku ini memberikan pemahaman mengenai
+    konsep dan penggunaan statistik untuk membantu mengolah,
+    menganalisis, serta menginterpretasikan data pendidikan.
+</p>
+
+    </div>
+
+</div>
+
+<script>
+function simpanBuku() {
+    const bukuBaru = {
+    id: "statistik-pendidikan",
+    judul: "Statistik Pendidikan",
+    penulis: "Siti Hajaroh & Raehanah",
+    kategori: "Akademik",
+    genre: "Pendidikan",
+    cover: "images/statistik-pendidikan.jpeg",
+    halaman: 238,
+    format: "PDF",
+    fileBaca: "baca-statistik.html",
+    detailPage: "detail-statistik.html"
+};
+
+    let koleksi =
+        JSON.parse(localStorage.getItem("koleksiBuku")) || [];
+
+    const sudahAda = koleksi.some(
+        buku => buku.id === bukuBaru.id
+    );
+
+    if (!sudahAda) {
+        koleksi.push(bukuBaru);
+        localStorage.setItem(
+            "koleksiBuku",
+            JSON.stringify(koleksi)
+        );
+    }
+
+    const toast = document.getElementById("toastNotification");
+
+    toast.querySelector("span:last-child").textContent =
+        sudahAda
+        ? "Majalah sudah ada di koleksi!"
+        : "Majalah berhasil disimpan ke koleksi!";
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 3000);
+}
+
+    
+</script>
+<div id="toastNotification" class="toast-notification">
+    <span>✓</span>
+    <span>Majalah berhasil disimpan ke koleksi!</span>
+</div>
+<script></script>
+</body>
+</html>

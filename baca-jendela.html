@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baca Majalah Jendela - E-Perpus UM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="reader-container">
+
+    <!-- HEADER MAJALAH -->
+    <header class="reader-header">
+        <a href="majalah.html">←</a>
+        <h2>Majalah Jendela</h2>
+    </header>
+
+    <!-- AREA BACA PDF -->
+    <main class="pdf-container" id="pdfContainer">
+        <div id="pdfPages"></div>
+    </main>
+
+    <!-- INFORMASI HALAMAN -->
+    <footer class="reader-footer">
+        <div class="footer-info">
+            <span id="pageIndicator">Halaman 1 dari ...</span>
+            <span id="progressText">0%</span>
+        </div>
+
+        <div class="progress">
+            <div id="progressBar"></div>
+        </div>
+    </footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+
+<script>
+const url = "buku/majalah-jendela-66.pdf";
+
+const pdfPages = document.getElementById("pdfPages");
+const pdfContainer = document.getElementById("pdfContainer");
+
+let pdfDoc = null;
+let pageCount = 0;
+let currentPage = 1;
+let isRestoring = true;
+
+const renderedPages = new Map();
+
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+// Render satu halaman ketika diperlukan
+async function renderPage(pageNumber) {
+
+    if (renderedPages.has(pageNumber)) {
+        return renderedPages.get(pageNumber);
+    }
+
+    const renderPromise = (async function() {
+
+        const page = await pdfDoc.getPage(pageNumber);
+        const viewport = page.getViewport({ scale: 0.9 });
+
+        const canvas = pdfPages.querySelector(
+            `.pdf-page[data-page="${pageNumber}"]`
+        );
+
+        if (!canvas) return;
+
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+
+        await page.render({
+            canvasContext: ctx,
+            viewport: viewport
+        }).promise;
+
+    })();
+
+    renderedPages.set(pageNumber, renderPromise);
+
+    try {
+        await renderPromise;
+    } catch (error) {
+        renderedPages.delete(pageNumber);
+        console.error("Gagal merender halaman:", pageNumber, error);
+    }
+}
+
+// Memuat PDF
+pdfjsLib.getDocument(url).promise.then(async function(pdf) {
+
+    pdfDoc = pdf;
+    pageCount = pdf.numPages;
+
+    document.getElementById("pageIndicator").textContent =
+        "Halaman 1 dari " + pageCount;
+
+    // Ambil ukuran halaman pertama sebagai ukuran placeholder
+    const firstPage = await pdfDoc.getPage(1);
+    const firstViewport = firstPage.getViewport({ scale: 0.9 });
+
+    // Buat tempat untuk semua halaman tanpa langsung merender semuanya
+    for (let i = 1; i <= pageCount; i++) {
+
+        const canvas = document.createElement("canvas");
+
+        canvas.className = "pdf-page";
+        canvas.dataset.page = i;
+
+        canvas.width = firstViewport.width;
+        canvas.height = firstViewport.height;
+
+        canvas.style.display = "block";
+        canvas.style.width = "100%";
+        canvas.style.height = "auto";
+        canvas.style.margin = "0 auto 12px";
+
+        pdfPages.appendChild(canvas);
+    }
+
+    // Render halaman yang terlihat dan halaman di sekitarnya
+    const observer = new IntersectionObserver((entries) => {
+
+        entries.forEach((entry) => {
+
+            if (entry.isIntersecting) {
+                const pageNumber = Number(
+                    entry.target.dataset.page
+                );
+
+                renderPage(pageNumber);
+            }
+
+        });
+
+    }, {
+        root: pdfContainer,
+        rootMargin: "800px 0px",
+        threshold: 0
+    });
+
+    document.querySelectorAll(".pdf-page").forEach((canvas) => {
+        observer.observe(canvas);
+    });
+
+    // Pulihkan halaman terakhir
+    const savedPage = Math.min(
+        Math.max(
+            Number(localStorage.getItem("jendelaPage")) || 1,
+            1
+        ),
+        pageCount
+    );
+
+    const targetPage = pdfPages.querySelector(
+        `.pdf-page[data-page="${savedPage}"]`
+    );
+
+    if (targetPage) {
+
+        targetPage.scrollIntoView({
+            behavior: "auto",
+            block: "start"
+        });
+
+        // Pastikan halaman terakhir selesai dirender
+        await renderPage(savedPage);
+    }
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            isRestoring = false;
+            updateReadingProgress();
+        });
+    });
+
+}).catch(function(error) {
+
+    console.error("PDF gagal dimuat:", error);
+
+    pdfPages.textContent =
+        "PDF gagal dimuat. Periksa kembali lokasi dan nama file PDF.";
+
+});
+
+// Memperbarui progres membaca
+function updateReadingProgress() {
+
+    if (isRestoring || pageCount === 0) return;
+
+    const pages = document.querySelectorAll(".pdf-page");
+
+    const containerRect = pdfContainer.getBoundingClientRect();
+    const middle = containerRect.top + containerRect.height / 2;
+
+    let visiblePage = 1;
+
+    pages.forEach((page) => {
+
+        const position = page.getBoundingClientRect();
+
+        if (position.top <= middle) {
+            visiblePage = Number(page.dataset.page);
+        }
+
+    });
+
+    currentPage = visiblePage;
+
+    const progress = Math.round(
+        (currentPage / pageCount) * 100
+    );
+
+    localStorage.setItem("jendelaPage", currentPage);
+    localStorage.setItem("jendelaProgress", progress);
+    localStorage.setItem("jendelaLastRead", new Date().toLocaleDateString("id-ID"));
+
+    document.getElementById("pageIndicator").textContent =
+        "Halaman " + currentPage + " dari " + pageCount;
+
+    document.getElementById("progressText").textContent =
+        progress + "%";
+
+    document.getElementById("progressBar").style.width =
+        progress + "%";
+}
+
+pdfContainer.addEventListener("scroll", updateReadingProgress);
+</script>
+<script></script>
+</body>
+</html>

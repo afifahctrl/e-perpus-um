@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Riwayat Membaca - E-Perpus UM</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .history-page {
+            width: 100%;
+            margin: auto;
+            min-height: 100vh;
+            background: white;
+        }
+
+        .history-header {
+            height: 55px;
+            background: #5b58b8;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .history-header h1 {
+            font-size: 16px;
+            margin: 0;
+            color: white;
+        }
+
+        .history-back {
+            position: absolute;
+            left: 18px;
+            text-decoration: none;
+            color: white;
+            font-size: 28px;
+        }
+
+        .reading-activity {
+            margin: 12px 10px;
+            padding: 12px;
+            background: #eee;
+        }
+
+        .reading-activity h2 {
+            margin: 0 0 18px;
+            font-size: 20px;
+        }
+
+        .activity-box {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+
+        .activity-box strong {
+            display: block;
+            font-size: 30px;
+            color: #5b58b8;
+            margin-bottom: 5px;
+        }
+
+        .activity-box span {
+            font-size: 14px;
+        }
+
+        .history-search {
+            margin: 16px 20px 4px !important;
+        }
+
+        .history-search input {
+            width: 100%;
+            height: 48px;
+            padding: 0 16px;
+            font-size: 15px;
+            margin-bottom: 0 !important;
+        }
+
+        /* Jarak atas tombol filter diperkecil rapat ke search bar */
+        .history-filter {
+            margin: 4px 20px 10px !important;
+            gap: 8px;
+        }
+
+        .history-filter button {
+            height: 40px;
+            font-size: 13px;
+            white-space: nowrap;
+            margin-top: 0 !important;
+        }
+
+        .history-filter button.active-filter {
+            background: #5b58b8;
+            color: white;
+        }
+
+        .history-list {
+            padding: 0 20px 10px;
+        }
+
+        .history-book {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 5px;
+            margin: 0;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+
+        .history-cover {
+            width: 82px;
+            height: 120px;
+            flex-shrink: 0;
+            border-radius: 7px;
+            overflow: hidden;
+        }
+
+        .history-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .history-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .history-info h3 {
+            font-size: 14px;
+            font-weight: normal;
+            margin: 0 0 5px;
+            line-height: 1.3;
+        }
+
+        .history-info p {
+            font-size: 10px;
+            color: #777;
+            margin: 0 0 8px;
+        }
+
+        .history-status {
+            display: inline-block;
+            padding: 5px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            margin-bottom: 8px;
+        }
+
+        .history-status.selesai {
+            background: #8de0b7;
+            color: #287b58;
+        }
+
+        .history-status.sedang {
+            background: #c9c3f2;
+            color: #5b58b8;
+        }
+
+        .history-info small {
+            display: block;
+            font-size: 10px;
+            color: #777;
+            margin-top: 3px;
+        }
+
+        .history-progress {
+            height: 4px;
+            background: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .history-progress div {
+            height: 100%;
+            background: #5b58b8;
+        }
+
+        .progress-text {
+            display: block;
+            font-size: 10px;
+            color: #777;
+            text-align: right;
+            margin-top: 3px;
+        }
+
+        .history-arrow {
+            font-size: 28px;
+            color: #888;
+            padding-left: 3px;
+        }
+
+        .history-empty {
+            text-align: center;
+            color: #888;
+            padding: 35px 10px;
+            font-size: 14px;
+        }
+
+        /* PERAPIAN LAYOUT RIWAYAT */
+        .history-page {
+            width: 100%;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .reading-activity {
+            margin: 20px;
+            padding: 18px 15px;
+        }
+
+        .history-search {
+            margin: 16px 20px;
+        }
+
+        .history-search input {
+            width: 100%;
+            height: 48px;
+            padding: 0 16px;
+            font-size: 15px;
+        }
+
+        /* Jarak atas tombol filter diperkecil rapat ke search bar */
+        .history-filter {
+            margin: 2px 20px 10px;
+            gap: 8px;
+        }
+
+        .history-filter button {
+            height: 40px;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .history-list {
+            padding: 0 20px 25px;
+        }
+
+        .history-book {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 5px;
+            margin: 0;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+
+        .history-cover {
+            width: 82px;
+            height: 120px;
+            flex: 0 0 82px;
+            border-radius: 7px;
+        }
+
+        .history-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .history-info h3 {
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 1.3;
+            margin: 0 0 4px;
+            color: #222;
+        }
+
+        /* Nama penulis dipastikan rata kiri tepat di bawah judul */
+        .history-info p {
+            font-size: 14px;
+            line-height: 1.3;
+            color: #888;
+            margin: 0 0 10px;
+            text-align: left;
+        }
+
+        .history-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .history-info small {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #777;
+            margin-top: 5px;
+        }
+
+        .history-progress {
+            margin-top: 9px;
+            height: 4px;
+        }
+
+        .progress-text {
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .history-arrow {
+            flex: 0 0 18px;
+            font-size: 25px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="history-body">
+
+<div class="history-page">
+
+    <div class="history-header">
+        <a href="profil.html" class="history-back">←</a>
+        <h1>Riwayat Membaca</h1>
+    </div>
+
+    <div class="reading-activity">
+        <h2>Aktivitas Membaca</h2>
+
+        <div class="activity-box">
+            <div>
+                <strong id="countReading">0</strong>
+                <span>Sedang dibaca</span>
+            </div>
+
+            <div>
+                <strong id="countFinished">0</strong>
+                <span>Selesai dibaca</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="history-search">
+        <input type="text" id="searchHistory" placeholder="Cari riwayat buku">
+    </div>
+
+    <div class="history-filter">
+        <button class="active-filter" data-filter="semua">Semua</button>
+        <button data-filter="selesai">Selesai</button>
+        <button data-filter="sedang">Sedang dibaca</button>
+    </div>
+
+    <div class="history-list" id="historyList"></div>
+
+</div>
+
+<script>
+const books = [
+    {
+        id: "siriway",
+        title: "Siriway Warry",
+        author: "Esther Embram",
+        cover: "images/siriway-warry.jpg",
+        progressKey: "siriwayProgress",
+        pageKey: "siriwayPage",
+        lastReadKey: "siriwayLastRead",
+        reader: "baca.html"
+    },
+    {
+        id: "statistik",
+        title: "Statistik Pendidikan",
+        author: "Siti Hajaroh & Raehanah",
+        cover: "images/statistik-pendidikan.jpeg",
+        progressKey: "statistikProgress",
+        pageKey: "statistikPage",
+        lastReadKey: "statistikLastRead",
+        reader: "baca-statistik.html"
+    },
+    {
+        id: "jendela",
+        title: "Majalah Jendela",
+        author: "Redaksi Jendela",
+        cover: "images/jendela.jpeg",
+        progressKey: "jendelaProgress",
+        pageKey: "jendelaPage",
+        lastReadKey: "jendelaLastRead",
+        reader: "baca-jendela.html"
+    }
+];
+
+let currentFilter = "semua";
+
+function getProgress(book) {
+    let progress = Number(localStorage.getItem(book.progressKey)) || 0;
+    progress = Math.max(0, Math.min(100, progress));
+    return Math.round(progress);
+}
+
+function getBookStatus(book) {
+    return getProgress(book) >= 100 ? "selesai" : "sedang";
+}
+
+function renderHistory() {
+    const list = document.getElementById("historyList");
+    const search = document.getElementById("searchHistory").value.toLowerCase();
+
+    const readingCount = books.filter(book => getBookStatus(book) === "sedang").length;
+    const finishedCount = books.filter(book => getBookStatus(book) === "selesai").length;
+
+    document.getElementById("countReading").textContent = readingCount;
+    document.getElementById("countFinished").textContent = finishedCount;
+
+    const filteredBooks = books.filter(book => {
+        const matchesSearch = book.title.toLowerCase().includes(search);
+        const status = getBookStatus(book);
+
+        const matchesFilter =
+            currentFilter === "semua" ||
+            (currentFilter === "selesai" && status === "selesai") ||
+            (currentFilter === "sedang" && status === "sedang");
+
+        return matchesSearch && matchesFilter;
+    });
+
+    if (filteredBooks.length === 0) {
+        list.innerHTML = `<div class="history-empty">Riwayat buku tidak ditemukan.</div>`;
+        return;
+    }
+
+    list.innerHTML = filteredBooks.map(book => {
+        const progress = getProgress(book);
+        const status = getBookStatus(book);
+
+        return `
+            <div class="history-book" onclick="openBook('${book.reader}')">
+                <div class="history-cover">
+                    <img src="${book.cover}" alt="${book.title}">
+                </div>
+
+                <div class="history-info">
+                    <h3>${book.title}</h3>
+                    ${book.author ? `<p>${book.author}</p>` : ""}
+
+                    <span class="history-status ${status}">
+                        ${status === "selesai" ? "✓ Selesai dibaca" : "📖 Sedang dibaca"}
+                    </span>
+                    <small>📅 ${localStorage.getItem(book.lastReadKey) || "Belum ada tanggal membaca"}</small>
+                    ${status === "sedang" ? `
+                        <div class="history-progress">
+                            <div style="width: ${progress}%"></div>
+                        </div>
+                    ` : ""}
+                </div>
+
+                <span class="history-arrow">›</span>
+            </div>
+        `;
+    }).join("");
+}
+
+function openBook(reader) {
+    window.location.href = reader;
+}
+
+document.getElementById("searchHistory").addEventListener("input", renderHistory);
+
+document.querySelectorAll(".history-filter button").forEach(button => {
+    button.addEventListener("click", function() {
+        document.querySelectorAll(".history-filter button").forEach(btn => {
+            btn.classList.remove("active-filter");
+        });
+
+        this.classList.add("active-filter");
+        currentFilter = this.dataset.filter;
+
+        renderHistory();
+    });
+});
+
+renderHistory();
+</script>
+</body>
+</html>

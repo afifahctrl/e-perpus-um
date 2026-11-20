@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Majalah - E-Perpus UM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="home-body">
+
+<div class="home-page">
+
+    <!-- HEADER -->
+    <div class="home-header">
+        <div class="search-area">
+            <input type="text" placeholder="Telusuri koleksi">
+            <button class="search-button">🔍</button>
+        </div>
+
+        <div class="welcome">
+            <div class="profile-photo" id="profileInitial">P</div>
+            <div>
+                <h2>Selamat Datang !</h2>
+                <p id="userEmail">Pengguna E-Perpus UM</p>
+            </div>
+        </div>
+    </div>
+
+    
+<!-- BANNER SLIDER -->
+<div class="banner">
+    <div class="banner-slider" id="bannerSlider">
+
+        <div class="banner-slide active">
+            <div class="banner-text">
+                <small>Rekomendasi Buku</small>
+                <h1>Metode Penelitian</h1>
+                <p>Dr. Mochammad Cholik, M.Pd</p>
+            </div>
+            <img src="images/metode-penelitian.jpeg" alt="Metode Penelitian">
+        </div>
+
+        <div class="banner-slide">
+            <div class="banner-text">
+                <small>Rekomendasi Buku</small>
+                <h1>Manajemen Pemasaran</h1>
+                <p>Dr. Achmad Rizal, S.Pi., M.Si</p>
+            </div>
+            <img src="images/manajemen-pemasaran.jpeg" alt="Manajemen Pemasaran">
+        </div>
+
+        <div class="banner-slide">
+            <div class="banner-text">
+                <small>Rekomendasi Buku</small>
+                <h1>Media Pembelajaran Inklusif</h1>
+                <p>Cahaya Dewi, M.Pd</p>
+            </div>
+            <img src="images/media-pembelajaran.jpeg" alt="Media Pembelajaran Inklusif">
+        </div>
+
+    </div>
+
+    <div class="banner-dots">
+        <span class="dot active" onclick="showSlide(0)"></span>
+        <span class="dot" onclick="showSlide(1)"></span>
+        <span class="dot" onclick="showSlide(2)"></span>
+    </div>
+</div>
+
+
+    <!-- KATEGORI -->
+    <div class="categories">
+        <button onclick="window.location.href='home.html'">
+            Nonakademik
+        </button>
+
+        <button class="active">Majalah</button>
+
+        <button onclick="window.location.href='akademik.html'">
+    Akademik
+</button>
+    </div>
+
+    <!-- TERAKHIR DIAKSES -->
+    <div class="section-title">
+        <h2>Terakhir Diakses</h2>
+    </div>
+
+    <div class="book-row">
+
+        <!-- MAJALAH JENDELA -->
+        <a href="baca-jendela.html" class="book-link">
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="images/jendela.jpeg" alt="Majalah Jendela">
+                </div>
+
+                <div class="book-info">
+                    <h3>Majalah Jendela</h3>
+                    <p>Majalah yang memuat informasi seputar pendidikan dan kebudayaan.</p>
+                    <span id="jendelaProgressText">0%</span>
+                    <div class="progress">
+                        <div id="jendelaProgressBar"></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- LIRIS -->
+        <div class="book-card">
+            <div class="book-cover">
+                <img src="images/liris.jpeg" alt="LIRIS">
+            </div>
+
+            <div class="book-info">
+                <h3>LIRIS</h3>
+                <p>Majalah yang membahas sastra, literasi, dan karya tulis.</p>
+                <span>0%</span>
+                <div class="progress">
+                    <div style="width: 0%;"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- REKOMENDASI -->
+    <div class="section-title">
+        <h2>Rekomendasi</h2>
+    </div>
+
+    <div class="recommend-row">
+
+        <!-- MAJALAH JENDELA -->
+        <a href="detail-majalah.html" class="recommend-link">
+            <div class="recommend-card">
+                <div class="recommend-cover">
+                    <img src="images/jendela.jpeg" alt="Majalah Jendela">
+                </div>
+                <div class="recommend-info">
+                    <h3>Majalah Jendela</h3>
+                    <p>Pendidikan dan Kebudayaan</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- LIRIS -->
+        <div class="recommend-card">
+            <div class="recommend-cover">
+                <img src="images/liris.jpeg" alt="LIRIS">
+            </div>
+            <div class="recommend-info">
+                <h3>LIRIS</h3>
+                <p>Sastra dan Literasi</p>
+            </div>
+        </div>
+
+        <!-- SERINDIT 2020 -->
+        <div class="recommend-card">
+            <div class="recommend-cover">
+                <img src="images/serindit.jpeg" alt="Serindit 2020">
+            </div>
+            <div class="recommend-info">
+                <h3>Serindit 2020</h3>
+                <p>Bahasa dan Budaya Melayu</p>
+            </div>
+        </div>
+
+        <!-- INTISARI -->
+        <div class="recommend-card">
+            <div class="recommend-cover">
+                <img src="images/intisari.jpeg" alt="Intisari">
+            </div>
+            <div class="recommend-info">
+                <h3>Intisari</h3>
+                <p>Pengetahuan Umum</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+        <div class="bottom-nav">
+
+    <div class="nav-item active-nav">
+        <div class="nav-icon">⌂</div>
+        <span>Beranda</span>
+    </div>
+
+    <a href="./linimasa.html" class="nav-item">
+        <div class="nav-icon">✥</div>
+        <span>Linimasa</span>
+    </a>
+
+    <div class="nav-item">
+        <div class="nav-icon">⌕</div>
+        <span>Pencarian</span>
+    </div>
+
+    <a href="./profil.html" class="nav-item">
+        <div class="nav-icon">●</div>
+        <span>Profil</span>
+    </a>
+
+</div>
+
+        </div>
+
+    </div>
+
+<!-- SCRIPT BANNER -->
+<script>
+let currentSlide = 0;
+
+const slider = document.getElementById("bannerSlider");
+const slides = document.querySelectorAll(".banner-slide");
+const dots = document.querySelectorAll(".banner-dots .dot");
+
+function showSlide(index) {
+    currentSlide = index;
+
+    slider.style.transform =
+        `translateX(-${index * (100 / 3)}%)`;
+
+    dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === index);
+    });
+}
+
+setInterval(() => {
+    showSlide((currentSlide + 1) % slides.length);
+}, 4000);
+</script>
+
+<!-- SCRIPT PROGRESS -->
+<script>
+function updateJendelaProgress() {
+    const progress =
+        localStorage.getItem("jendelaProgress") || 0;
+
+    document.getElementById("jendelaProgressText").textContent =
+        progress + "%";
+
+    document.getElementById("jendelaProgressBar").style.width =
+        progress + "%";
+}
+
+window.addEventListener("pageshow", updateJendelaProgress);
+</script>
+<script></script>
+<script>
+const userName = localStorage.getItem('eperpusUserName');
+
+if (userName) {
+    document.getElementById('profileInitial').textContent = userName.charAt(0).toUpperCase();
+    document.querySelector('.welcome h2').textContent = 'Selamat Datang, ' + userName + '!';
+    document.querySelector('.welcome p').textContent = 'Selamat membaca di E-Perpus UM';
+}
+</script>
+</body>
+</html>

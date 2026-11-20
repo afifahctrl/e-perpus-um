@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nonakademik - E-Perpus UM</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#fff;color:#25234b}
+.header{height:64px;width:100%;max-width:430px;margin:0 auto;background:#5b58b8;color:#fff;display:flex;align-items:center;justify-content:center;position:relative}
+.header h1{font-size:20px;margin:0;font-weight:700}
+.back{position:absolute;left:16px;color:#fff;text-decoration:none;font-size:26px;line-height:1}
+.page{padding:16px;width:100%;max-width:430px;margin:0 auto}
+.searchbox{height:50px;border:1.5px solid #c9c5ec;border-radius:16px;display:flex;align-items:center;padding:0 14px;gap:10px;box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:20px}
+.search-icon{font-size:24px;color:#5b58b8}
+.searchbox input{border:0;outline:0;flex:1;font-size:15px;min-width:0;background:transparent}
+.book-list{display:flex;flex-direction:column;gap:14px}
+.book-card{display:flex;gap:14px;align-items:stretch;padding:12px;border:1.5px solid #e2def7;border-radius:18px;background:#fff;color:inherit;text-decoration:none;min-height:190px}
+.book-card.clickable{border-color:#625bd0;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.book-card.clickable:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(91,88,184,.12)}
+.cover{width:112px;flex:0 0 112px;min-height:164px;object-fit:cover;border-radius:10px;background:#eee}
+.book-info{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start}
+.book-title{font-size:19px;font-weight:700;line-height:1.2;margin:2px 0 8px;color:#202044}
+.genre{display:inline-block;border-radius:20px;padding:5px 12px;font-size:12px;font-weight:700;margin-bottom:8px;background:#e9e5ff;color:#343064}
+.genre.gold{background:#fff0c7}
+.synopsis{font-size:13px;line-height:1.4;color:#353451;margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.readers{font-size:13px;color:#55566b;display:flex;align-items:center;gap:7px;margin-top:auto}
+.eye{font-size:16px}
+.arrow{font-size:24px;color:#29255f;align-self:center;margin-left:2px;flex:0 0 auto}
+.empty{display:none;text-align:center;padding:24px;color:#777;font-size:14px}
+@media(max-width:360px){.book-card{gap:10px;padding:10px;min-height:165px}.cover{width:92px;flex-basis:92px;min-height:140px}.book-title{font-size:16px}.synopsis{font-size:12px;-webkit-line-clamp:3}}
+</style>
+</head>
+<body>
+<header class="header"><a class="back" href="pencarian.html" aria-label="Kembali">←</a><h1>Nonakademik</h1></header>
+<main class="page">
+<label class="searchbox"><span class="search-icon">⌕</span><input id="searchInput" type="search" placeholder="Cari buku di kategori Nonakademik..." autocomplete="off"></label>
+<section class="book-list" id="bookList">
+<a class="book-card clickable" href="detail.html" data-search="siriway warry novel persahabatan kehilangan rumah">
+<img class="cover" src="images/siriway-warry.jpg" alt="Cover Siriway Warry">
+<div class="book-info"><h2 class="book-title">Siriway Warry</h2><span class="genre">Novel</span><p class="synopsis">Kisah perjalanan penuh makna tentang persahabatan, kehilangan, dan menemukan arti rumah yang sesungguhnya.</p><div class="readers"><span class="eye">◉</span> 1.248 pembaca</div></div><span class="arrow">›</span></a>
+<article class="book-card" data-search="filosofi teras henry manampiring pengembangan diri stoik"><img class="cover" src="images/filosofi-teras.jpeg" alt="Cover Filosofi Teras"><div class="book-info"><h2 class="book-title">Filosofi Teras</h2><span class="genre gold">Pengembangan Diri</span><p class="synopsis">Mengajak pembaca menerapkan filosofi Stoik dalam kehidupan sehari-hari agar lebih tenang, fokus, dan bahagia.</p><div class="readers"><span class="eye">◉</span> 3.872 pembaca</div></div></article>
+<article class="book-card" data-search="bumi tere liye fantasi petualangan dunia paralel"><img class="cover" src="images/bumi.jpeg" alt="Cover Bumi"><div class="book-info"><h2 class="book-title">Bumi</h2><span class="genre">Fantasi</span><p class="synopsis">Awal kisah petualangan sekelompok remaja dalam dunia paralel penuh misteri, persahabatan, dan kekuatan istimewa.</p><div class="readers"><span class="eye">◉</span> 5.631 pembaca</div></div></article>
+<article class="book-card" data-search="laskar pelangi andrea hirata novel pendidikan belitung mimpi"><img class="cover" src="images/laskar-pelangi.jpeg" alt="Cover Laskar Pelangi"><div class="book-info"><h2 class="book-title">Laskar Pelangi</h2><span class="genre">Novel</span><p class="synopsis">Kisah inspiratif tentang perjuangan anak-anak di Belitung dalam meraih pendidikan dan mewujudkan mimpi mereka.</p><div class="readers"><span class="eye">◉</span> 4.209 pembaca</div></div></article>
+</section><div class="empty" id="emptyMessage">Buku tidak ditemukan.</div></main>
+<script>
+const searchInput=document.getElementById('searchInput');
+const cards=[...document.querySelectorAll('.book-card')];
+const emptyMessage=document.getElementById('emptyMessage');
+searchInput.addEventListener('input',()=>{
+ const query=searchInput.value.trim().toLowerCase();let visible=0;
+ cards.forEach(card=>{const text=(card.dataset.search||card.innerText).toLowerCase();const show=text.includes(query);card.style.display=show?'flex':'none';if(show)visible++;});
+ emptyMessage.style.display=visible?'none':'block';
+});
+</script><script></script></body></html>

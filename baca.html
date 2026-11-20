@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baca Buku - E-Perpus UM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<div class="reader-container">
+
+    <!-- HEADER BUKU -->
+    <header class="reader-header">
+        <a href="home.html">←</a>
+        <h2>Siriway Warry</h2>
+    </header>
+
+    <!-- AREA BACA PDF -->
+    <main class="pdf-container" id="pdfContainer">
+        <div id="pdfPages"></div>
+    </main>
+
+    <!-- INFORMASI HALAMAN -->
+    <footer class="reader-footer">
+        <div class="footer-info">
+            <span id="pageIndicator">Halaman 1 dari 61</span>
+            <span id="progressText">0%</span>
+        </div>
+
+        <div class="progress">
+            <div id="progressBar"></div>
+        </div>
+    </footer>
+
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<div id="ratingModal" class="rating-modal" style="display: none;">
+    <div class="rating-content">
+        <h2>Buku selesai dibaca! 🎉</h2>
+        <p>Bagaimana penilaianmu terhadap buku ini?</p>
+
+        <div id="ratingStars">
+            <span data-rating="1">☆</span>
+            <span data-rating="2">☆</span>
+            <span data-rating="3">☆</span>
+            <span data-rating="4">☆</span>
+            <span data-rating="5">☆</span>
+        </div>
+
+        <textarea id="ratingReview" placeholder="Tulis ulasanmu di sini..."></textarea>
+
+        <button id="submitRating">Kirim Ulasan</button>
+    </div>
+</div>
+<script>
+localStorage.setItem("siriwayLastRead", new Date().toLocaleDateString("id-ID"));
+const url = "buku/Cerita%20Siriway%20Warry%20comp.pdf";
+
+const pdfPages = document.getElementById("pdfPages");
+const pdfContainer = document.getElementById("pdfContainer");
+
+let pdfDoc = null;
+let pageCount = 0;
+let currentPage = 1;
+
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+pdfjsLib.getDocument(url).promise.then(async function(pdf) {
+    pdfDoc = pdf;
+    pageCount = pdf.numPages;
+
+    for (let i = 1; i <= pageCount; i++) {
+        const page = await pdfDoc.getPage(i);
+        const viewport = page.getViewport({ scale: 0.9 });
+
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        canvas.className = "pdf-page";
+        canvas.dataset.page = i;
+
+        pdfPages.appendChild(canvas);
+
+        await page.render({
+            canvasContext: ctx,
+            viewport: viewport
+        }).promise;
+    }
+
+        const savedPage = Number(localStorage.getItem("siriwayPage")) || 1;
+
+const targetPage = pdfPages.querySelector(
+    `.pdf-page[data-page="${savedPage}"]`
+);
+
+if (targetPage) {
+    targetPage.scrollIntoView({
+        behavior: "auto",
+        block: "start"
+    });
+}
+
+updateReadingProgress();
+
+   
+
+}).catch(function(error) {
+    console.error("PDF gagal dimuat:", error);
+});
+
+function updateReadingProgress() {
+    const pages = document.querySelectorAll(".pdf-page");
+
+    const containerRect = pdfContainer.getBoundingClientRect();
+    const middle = containerRect.top + containerRect.height / 2;
+
+    let visiblePage = 1;
+
+    pages.forEach((page) => {
+        const position = page.getBoundingClientRect();
+
+        if (position.top <= middle && position.bottom >= middle) {
+            visiblePage = Number(page.dataset.page);
+        }
+    });
+
+    currentPage = visiblePage;
+
+    const progress = Math.round((currentPage / pageCount) * 100);
+localStorage.setItem("siriwayPage", currentPage);
+localStorage.setItem("siriwayProgress", progress);
+localStorage.setItem("siriwayProgress", progress);
+localStorage.setItem("siriwayLastRead", new Date().toLocaleDateString("id-ID"));
+checkSiriwayCompletion();
+
+    document.getElementById("pageIndicator").textContent =
+        "Halaman " + currentPage + " dari " + pageCount;
+
+    document.getElementById("progressText").textContent =
+        progress + "%";
+
+    document.getElementById("progressBar").style.width =
+        progress + "%";
+}
+
+
+// ===== RATING SIRIWAY WARRY =====
+let siriwayRating = 0;
+
+const ratingModal = document.getElementById("ratingModal");
+const ratingStars = document.querySelectorAll("#ratingStars span");
+
+function checkSiriwayCompletion() {
+    const progress = Number(localStorage.getItem("siriwayProgress")) || 0;
+    const ratingDone = localStorage.getItem("siriwayRatingDone");
+
+    if (progress >= 100 && !ratingDone) {
+        ratingModal.style.display = "flex";
+    }
+}
+
+// Pilih bintang
+ratingStars.forEach((star) => {
+    star.addEventListener("click", function () {
+        siriwayRating = Number(this.dataset.rating);
+
+        ratingStars.forEach((s) => {
+            s.textContent =
+                Number(s.dataset.rating) <= siriwayRating ? "★" : "☆";
+        });
+    });
+});
+
+// Kirim rating dan ulasan
+document.getElementById("submitRating").addEventListener("click", function () {
+    if (siriwayRating === 0) {
+        alert("Silakan pilih rating terlebih dahulu.");
+        return;
+    }
+
+    const review = document.getElementById("ratingReview").value.trim();
+
+    const reviewData = {
+        id: "siriway-warry",
+        judul: "Siriway Warry",
+        penulis: "",
+        cover: "images/siriway-warry.jpg",
+        rating: siriwayRating,
+        ulasan: review,
+        tanggalSelesai: new Date().toLocaleDateString("id-ID"),
+        waktuSelesai: new Date().toISOString()
+    };
+
+    const reviews =
+        JSON.parse(localStorage.getItem("timelineReviews")) || [];
+
+    const index = reviews.findIndex(item => item.id === "siriway-warry");
+
+    if (index === -1) {
+        reviews.push(reviewData);
+    } else {
+        reviews[index] = reviewData;
+    }
+
+    localStorage.setItem("timelineReviews", JSON.stringify(reviews));
+    localStorage.setItem("siriwayRatingDone", "true");
+
+    ratingModal.style.display = "none";
+
+    alert("Rating dan ulasan berhasil disimpan!");
+});
+
+checkSiriwayCompletion();
+pdfContainer.addEventListener("scroll", updateReadingProgress);
+</script>
+<script></script>
+</body>
+</html>

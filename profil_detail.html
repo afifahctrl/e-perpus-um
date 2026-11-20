@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Pengguna - E-Perpus UM</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .personal-profile {
+            max-width: 430px;
+            margin: auto;
+            min-height: 100vh;
+            background: #fff;
+            font-family: Arial, sans-serif;
+            padding-bottom: 30px;
+        }
+
+        .personal-header {
+        .personal-header h2 {
+    color: white;
+}
+            background: #5b58b8;
+            color: white;
+            padding: 22px;
+            text-align: center;
+        }
+
+        .personal-header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .personal-content {
+            padding: 25px 20px;
+        }
+
+        .personal-hero {
+            text-align: center;
+            padding: 25px 15px;
+            background: #f4f2ff;
+            border-radius: 18px;
+        }
+
+        .personal-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: #9b009b;
+            color: white;
+            font-size: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+        }
+
+        .personal-hero h2 {
+            margin: 5px 0;
+        }
+
+        .personal-hero p {
+            color: #777;
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .personal-form {
+            margin-top: 25px;
+        }
+
+        .personal-form label {
+            display: block;
+            margin: 15px 0 8px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .personal-form input,
+        .personal-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .personal-form textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .save-profile {
+            width: 100%;
+            margin-top: 20px;
+            padding: 13px;
+            background: #5b58b8;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .back-profile {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #5b58b8;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body class="profile-body">
+
+<div class="personal-profile">
+
+    <div class="personal-header">
+        <h1 style="color: white !important;">Profil Pengguna</h1>
+    </div>
+
+    <div class="personal-content">
+
+        <div class="personal-hero">
+            <div class="personal-avatar" id="personalInitial">P</div>
+            <h2 id="personalName">Pengguna</h2>
+            <p>Pengguna E-Perpus UM</p>
+        </div>
+
+        <div class="personal-form">
+
+            <label for="editName">Nama pengguna</label>
+            <input type="text" id="editName" placeholder="Masukkan nama">
+
+            <label for="editBio">Tentang saya</label>
+            <textarea id="editBio" placeholder="Ceritakan sedikit tentang dirimu..."></textarea>
+
+            <button class="save-profile" onclick="saveProfile()">Simpan Profil</button>
+
+        </div>
+
+        <a href="profil.html" class="back-profile">← Kembali ke Akun Saya</a>
+
+    </div>
+</div>
+
+<script>
+const savedUserName = localStorage.getItem('eperpusUserName') || 'Pengguna';
+const savedBio = localStorage.getItem('eperpusBio') || '';
+
+document.getElementById('personalName').textContent = savedUserName;
+document.getElementById('personalInitial').textContent = savedUserName.charAt(0).toUpperCase();
+document.getElementById('editName').value = savedUserName;
+document.getElementById('editBio').value = savedBio;
+
+function saveProfile() {
+    const newName = document.getElementById('editName').value.trim();
+    const newBio = document.getElementById('editBio').value.trim();
+
+    if (!newName) {
+        alert('Nama tidak boleh kosong!');
+        return;
+    }
+
+    localStorage.setItem('eperpusUserName', newName);
+    localStorage.setItem('eperpusBio', newBio);
+
+    document.getElementById('personalName').textContent = newName;
+    document.getElementById('personalInitial').textContent = newName.charAt(0).toUpperCase();
+
+    alert('Profil berhasil disimpan!');
+}
+</script>
+
+</body>
+</html>

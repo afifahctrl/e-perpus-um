@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akademik - E-Perpus UM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="home-body akademik-page">
+
+<div class="home-page akademik-page">
+
+    <!-- HEADER -->
+    <div class="home-header">
+        <div class="search-area">
+            <input type="text" placeholder="Telusuri koleksi">
+            <button class="search-button">🔍</button>
+        </div>
+
+        <div class="welcome">
+            <div class="profile-photo" id="profileInitial">P</div>
+            <div>
+               <h2 id="welcomeName">Selamat Datang !</h2>
+                <p>Selamat membaca di E-Perpus UM</p>
+            </div>
+        </div>
+    </div>
+
+    
+<!-- BANNER SLIDER -->
+<div class="banner">
+    <div class="banner-slider" id="bannerSlider">
+
+        <div class="banner-slide active">
+            <div class="banner-text">
+                <small>Rekomendasi Buku</small>
+                <h1>Metode Penelitian</h1>
+                <p>Dr. Mochammad Cholik, M.Pd</p>
+            </div>
+            <img src="images/metode-penelitian.jpeg" alt="Metode Penelitian">
+        </div>
+
+        <div class="banner-slide">
+            <div class="banner-text">
+                <small>Rekomendasi Buku</small>
+                <h1>Manajemen Pemasaran</h1>
+                <p>Dr. Achmad Rizal, S.Pi., M.Si</p>
+            </div>
+            <img src="images/manajemen-pemasaran.jpeg" alt="Manajemen Pemasaran">
+        </div>
+
+        <div class="banner-slide">
+            <div class="banner-text">
+                <small>Rekomendasi Buku</small>
+                <h1>Media Pembelajaran Inklusif</h1>
+                <p>Cahaya Dewi, M.Pd</p>
+            </div>
+            <img src="images/media-pembelajaran.jpeg" alt="Media Pembelajaran Inklusif">
+        </div>
+
+    </div>
+
+    <div class="banner-dots">
+        <span class="dot active" onclick="showSlide(0)"></span>
+        <span class="dot" onclick="showSlide(1)"></span>
+        <span class="dot" onclick="showSlide(2)"></span>
+    </div>
+</div>
+
+
+    <!-- KATEGORI -->
+    <div class="categories">
+    <button onclick="window.location.href='home.html'">
+        Nonakademik
+    </button>
+
+    <button onclick="window.location.href='majalah.html'">
+        Majalah
+    </button>
+
+    <button class="active">Akademik</button>
+</div>
+
+    <!-- TERAKHIR DIAKSES -->
+    <!-- TERAKHIR DIAKSES -->
+<!-- TERAKHIR DIAKSES -->
+<div class="section-title">
+    <h2>Terakhir Diakses</h2>
+</div>
+
+<div class="book-row">
+
+    <!-- STATISTIK PENDIDIKAN -->
+    <a href="baca-statistik.html" class="book-link">
+        <div class="book-card">
+            <div class="book-cover">
+                <img src="images/statistik-pendidikan.jpeg"
+                     alt="Statistik Pendidikan">
+            </div>
+
+            <div class="book-info">
+                <h3>Statistik Pendidikan</h3>
+                <p>Statistika untuk penelitian pendidikan.</p>
+                <span id="statistikProgressText">0%</span>
+                <div class="progress">
+                    <div id="statistikProgressBar"></div>
+                </div>
+            </div>
+        </div>
+    </a>
+
+    <!-- EVALUASI PEMBELAJARAN MATEMATIKA -->
+    <div class="book-card">
+        <div class="book-cover">
+            <img src="images/evaluasi-pembelajaran.jpeg"
+                 alt="Evaluasi Pembelajaran Matematika">
+        </div>
+
+        <div class="book-info">
+            <h3>Evaluasi Pembelajaran Matematika</h3>
+            <p>Penilaian hasil belajar matematika.</p>
+            <span>0%</span>
+            <div class="progress">
+                <div style="width: 0%;"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- REKOMENDASI -->
+    <!-- REKOMENDASI -->
+<div class="section-title">
+    <h2>Rekomendasi</h2>
+</div>
+
+<div class="recommend-row">
+
+    <!-- MEDIA PEMBELAJARAN INKLUSIF -->
+    <div class="recommend-card">
+        <div class="recommend-cover">
+            <img src="images/media-pembelajaran.jpeg"
+                 alt="Media Pembelajaran Inklusif">
+        </div>
+        <div class="recommend-info">
+            <h3>Media Pembelajaran Inklusif</h3>
+           <p>Media pembelajaran untuk semua peserta didik.</p>
+        </div>
+    </div>
+
+    <!-- MANAJEMEN PEMASARAN -->
+    <div class="recommend-card">
+        <div class="recommend-cover">
+            <img src="images/manajemen-pemasaran.jpeg"
+                 alt="Manajemen Pemasaran">
+        </div>
+        <div class="recommend-info">
+            <h3>Manajemen Pemasaran di Era Masyarakat Industri 4.0</h3>
+            <p>Strategi pemasaran di era digital.</p>
+        </div>
+    </div>
+
+    <!-- EVALUASI PEMBELAJARAN MATEMATIKA -->
+    <div class="recommend-card">
+        <div class="recommend-cover">
+            <img src="images/evaluasi-pembelajaran.jpeg"
+                 alt="Evaluasi Pembelajaran Matematika">
+        </div>
+        <div class="recommend-info">
+            <h3>Evaluasi Pembelajaran Matematika</h3>
+            <p>Penilaian hasil belajar matematika.</p>
+        </div>
+    </div>
+
+    <!-- STATISTIK PENDIDIKAN -->
+    <a href="detail-statistik.html" class="recommend-link">
+        <div class="recommend-card">
+            <div class="recommend-cover">
+                <img src="images/statistik-pendidikan.jpeg"
+                     alt="Statistik Pendidikan">
+            </div>
+            <div class="recommend-info">
+                <h3>Statistik Pendidikan</h3>
+                <p>Statistika untuk penelitian pendidikan.</p>
+            </div>
+        </div>
+    </a>
+
+</div>
+
+    <!-- BOTTOM NAVIGATION -->
+        <div class="bottom-nav">
+
+    <div class="nav-item active-nav">
+        <div class="nav-icon">⌂</div>
+        <span>Beranda</span>
+    </div>
+
+    <a href="./linimasa.html" class="nav-item">
+        <div class="nav-icon">✥</div>
+        <span>Linimasa</span>
+    </a>
+
+    <div class="nav-item">
+        <div class="nav-icon">⌕</div>
+        <span>Pencarian</span>
+    </div>
+
+    <a href="./profil.html" class="nav-item">
+        <div class="nav-icon">●</div>
+        <span>Profil</span>
+    </a>
+
+</div>
+
+        </div>
+
+    </div>
+
+<!-- SCRIPT BANNER -->
+<script>
+let currentSlide = 0;
+
+const slider = document.getElementById("bannerSlider");
+const slides = document.querySelectorAll(".banner-slide");
+const dots = document.querySelectorAll(".banner-dots .dot");
+
+function showSlide(index) {
+    currentSlide = index;
+
+    slider.style.transform =
+        `translateX(-${index * (100 / 3)}%)`;
+
+    dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === index);
+    });
+}
+
+setInterval(() => {
+    showSlide((currentSlide + 1) % slides.length);
+}, 4000);
+</script>
+
+<!-- SCRIPT PROGRESS -->
+<script>
+function updateStatistikProgress() {
+    const progress =
+        localStorage.getItem("statistikProgress") || 0;
+
+    document.getElementById("statistikProgressText").textContent =
+        progress + "%";
+
+    document.getElementById("statistikProgressBar").style.width =
+        progress + "%";
+}
+
+window.addEventListener("pageshow", updateStatistikProgress);
+</script>
+<script></script> 
+<script>
+const userName = localStorage.getItem('eperpusUserName');
+
+if (userName) {
+    document.getElementById('welcomeName').textContent = 'Selamat Datang, ' + userName + '!';
+    document.querySelector('.welcome p').textContent = 'Selamat membaca di E-Perpus UM';
+    document.getElementById('profileInitial').textContent = userName.charAt(0).toUpperCase();
+}
+</script>
+</body>
+</html>

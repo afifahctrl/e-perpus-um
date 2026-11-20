@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Buku - E-Perpus UM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="detail-body">
+
+    <div class="detail-page">
+
+        <div class="detail-header">
+            <a href="home.html">←</a>
+            <h2>Detail Buku</h2>
+        </div>
+
+        <div class="detail-content">
+
+            <div class="detail-cover">
+                <img src="images/siriway-warry.jpg" alt="Siriway Warry">
+            </div>
+
+            <h1>Siriway Warry</h1>
+
+            <p class="author">Cerita Rakyat Papua</p>
+
+            <div class="book-data">
+                <div>
+                    <span>Ulasan</span>
+                    <strong>⭐ 5.0 / 5</strong>
+                </div>
+
+                <div>
+                    <span>Halaman</span>
+                    <strong>61</strong>
+                </div>
+
+                <div>
+                    <span>Ukuran File</span>
+                    <strong>PDF</strong>
+                </div>
+            </div>
+
+            <div class="detail-buttons">
+                <button class="read-button" onclick="window.location.href='baca.html'">
+    Baca sekarang
+</button>
+               <button class="save-button" onclick="simpanBuku()">
+    Simpan
+</button>
+            </div>
+
+            <h2>Sinopsis</h2>
+
+            <p class="synopsis">
+                Siriway Warry merupakan cerita rakyat dari Papua
+                yang mengenalkan kekayaan budaya, tradisi, dan
+                kehidupan masyarakat Papua.
+            </p>
+
+        </div>
+    </div>
+<script>
+function simpanBuku() {
+    const bukuBaru = {
+        id: "siriway-warry",
+        judul: "Siriway Warry",
+        penulis: "Esther Eriemram",
+        kategori: "Nonakademik",
+        genre: "Cerita Rakyat",
+        cover: "images/siriway-warry.jpg",
+        halaman: 61,
+        format: "PDF",
+        fileBaca: "baca.html"
+    };
+
+    let koleksi = JSON.parse(
+        localStorage.getItem("koleksiBuku")
+    ) || [];
+
+    const sudahAda = koleksi.some(
+        buku => buku.id === bukuBaru.id
+    );
+
+    if (!sudahAda) {
+        koleksi.push(bukuBaru);
+        localStorage.setItem(
+            "koleksiBuku",
+            JSON.stringify(koleksi)
+        );
+    }
+
+    const toast = document.getElementById("toastNotification");
+
+    toast.querySelector("span:last-child").textContent =
+        sudahAda
+        ? "Buku sudah ada di koleksi!"
+        : "Buku berhasil disimpan ke koleksi!";
+
+    toast.classList.add("show");
+
+    setTimeout(function() {
+        toast.classList.remove("show");
+    }, 3000);
+}
+</script>
+<div id="toastNotification" class="toast-notification">
+    <span>✓</span>
+    <span>Siriway Warry berhasil disimpan ke koleksi!</span>
+</div>
+<script></script>
+</body>
+</html>

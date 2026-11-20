@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Majalah - E-Perpus UM</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f6f5fb;color:#29243d}
+.header{height:64px;background:#6b4cc3;color:white;display:flex;align-items:center;padding:0 22px;gap:16px;width:100%;max-width:430px;margin:auto}
+.back{color:white;text-decoration:none;font-size:26px}
+.header h1{font-size:20px;margin:0}
+.page{width:100%;max-width:430px;margin:28px auto;padding:0 14px}
+.search-wrap{margin-bottom:22px}
+.search-wrap input{width:100%;padding:13px 16px;border:1px solid #d8d1e8;border-radius:12px;font-size:15px;outline:none}
+.search-wrap input:focus{border-color:#6b4cc3;box-shadow:0 0 0 3px #6b4cc322}
+.book-list{display:flex;flex-direction:column;gap:14px}
+.book-card{display:flex;gap:14px;align-items:stretch;background:white;border-radius:14px;padding:12px;box-shadow:0 2px 9px #2820440b;text-decoration:none;color:inherit;border:1px solid #eeeaf5;min-height:160px;position:relative}
+.cover{width:112px;height:154px;object-fit:cover;border-radius:7px;background:#e9e4f2;flex-shrink:0}
+.book-info{min-width:0;flex:1;padding-right:12px}
+.book-title{margin:2px 0 7px;font-size:18px;color:#332650}
+.tag{display:inline-block;background:#eee8fb;color:#6544a7;border-radius:20px;padding:4px 9px;font-size:12px;margin-bottom:8px}
+.synopsis{font-size:14px;line-height:1.5;color:#5b5668;margin:0 0 10px}
+.readers{font-size:12px;color:#8b8497}
+.cat-arrow{margin-left:auto;align-self:center;font-size:22px;color:#6544a7;flex-shrink:0}
+.empty{display:none;padding:24px;text-align:center;color:#81798e;background:white;border-radius:12px}
+@media(max-width:380px){.book-card{gap:10px;padding:10px}.cover{width:96px;height:132px}.book-title{font-size:16px}.synopsis{font-size:13px}}
+</style>
+</head>
+<body>
+<header class="header"><a class="back" href="pencarian.html" aria-label="Kembali">←</a><h1>Majalah</h1></header>
+<main class="page">
+<div class="search-wrap"><input id="search" type="search" placeholder="Cari majalah..."></div>
+<div class="book-list" id="bookList">
+<a class="book-card" href="detail-majalah.html" data-search="jendela majalah pendidikan">
+<img class="cover" src="images/jendela.jpeg" alt="Cover Majalah Jendela">
+<div class="book-info"><h2 class="book-title">Jendela</h2><span class="tag">Majalah Pendidikan</span><p class="synopsis">Majalah pendidikan berisi informasi, wawasan, dan berbagai topik menarik seputar dunia pendidikan.</p><div class="readers">◉ 1.248 pembaca</div></div><span class="cat-arrow">›</span></a>
+<div class="book-card" data-search="liris majalah">
+<img class="cover" src="images/liris.jpeg" alt="Cover Majalah LIRIS">
+<div class="book-info"><h2 class="book-title">LIRIS</h2><span class="tag">Majalah</span><p class="synopsis">Kumpulan informasi dan bacaan pilihan dalam majalah LIRIS.</p><div class="readers">◉ 986 pembaca</div></div></div>
+<div class="book-card" data-search="serindit 2020 majalah">
+<img class="cover" src="images/serindit.jpeg" alt="Cover Majalah Serindit 2020">
+<div class="book-info"><h2 class="book-title">Serindit 2020</h2><span class="tag">Majalah</span><p class="synopsis">Majalah Serindit edisi 2020, berisi kumpulan tulisan dan informasi pilihan.</p><div class="readers">◉ 735 pembaca</div></div></div>
+<div class="book-card" data-search="intisari majalah">
+<img class="cover" src="images/intisari.jpeg" alt="Cover Majalah Intisari">
+<div class="book-info"><h2 class="book-title">Intisari</h2><span class="tag">Majalah</span><p class="synopsis">Bacaan ringkas dengan beragam informasi, pengetahuan, dan kisah inspiratif.</p><div class="readers">◉ 2.104 pembaca</div></div></div>
+</div><div class="empty" id="empty">Majalah tidak ditemukan.</div>
+</main>
+<script>
+const search=document.getElementById('search');
+const cards=[...document.querySelectorAll('.book-card')];
+search.addEventListener('input',()=>{const q=search.value.toLowerCase().trim();let count=0;cards.forEach(c=>{const match=c.dataset.search.toLowerCase().includes(q);c.style.display=match?'flex':'none';if(match)count++});document.getElementById('empty').style.display=count?'none':'block';});
+</script>
+<script></script>
+</body>
+</html>

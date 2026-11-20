@@ -1,0 +1,503 @@
+<<!DOCTYPE html>
+<html>
+<head>
+    <title>Beranda - E-Perpus UM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="home-body">
+
+    <div class="home-page">
+
+        <!-- HEADER -->
+        <div class="home-header">
+
+            <div class="search-area" style="position: relative;">
+    <input type="text" id="homeSearchInput" placeholder="Telusuri koleksi">
+    <button class="search-button" id="homeSearchButton" type="button">🔍</button>
+    <div id="homeSearchResults" class="home-search-results"></div>
+</div>
+
+            <div class="welcome">
+    <div class="profile-photo" id="profileInitial">A</div>
+
+    <div class="welcome-info">
+    <h2>Selamat Datang, <span id="profileName">Pengguna</span>!</h2>
+    <p>Selamat membaca di E-Perpus UM</p>
+</div>
+</div>
+        </div>
+
+
+        <!-- BANNER -->
+        <!-- BANNER SLIDER -->
+<div class="banner">
+    <div class="banner-slider" id="bannerSlider">
+
+        <div class="banner-slide active">
+            <div class="banner-text">
+                <small>Rekomendasi Buku</small>
+                <h1>Metode Penelitian</h1>
+                <p>Dr. Mochammad Cholik, M.Pd</p>
+            </div>
+            <img src="images/metode-penelitian.jpeg" alt="Metode Penelitian">
+        </div>
+
+        <div class="banner-slide">
+            <div class="banner-text">
+                <small>Rekomendasi Buku</small>
+                <h1>Manajemen Pemasaran</h1>
+                <p>Dr. Achmad Rizal, S.Pi., M.Si</p>
+            </div>
+            <img src="images/manajemen-pemasaran.jpeg" alt="Manajemen Pemasaran">
+        </div>
+
+        <div class="banner-slide">
+            <div class="banner-text">
+                <small>Rekomendasi Buku</small>
+                <h1>Media Pembelajaran Inklusif</h1>
+                <p>Cahaya Dewi, M.Pd</p>
+            </div>
+            <img src="images/media-pembelajaran.jpeg" alt="Media Pembelajaran Inklusif">
+        </div>
+
+    </div>
+
+    <div class="banner-dots">
+        <span class="dot active" onclick="showSlide(0)"></span>
+        <span class="dot" onclick="showSlide(1)"></span>
+        <span class="dot" onclick="showSlide(2)"></span>
+    </div>
+</div>
+
+
+        <!-- KATEGORI -->
+        <div class="categories">
+    <button class="active">
+        Nonakademik
+    </button>
+
+    <button onclick="window.location.href='majalah.html'">
+        Majalah
+    </button>
+
+    <button onclick="window.location.href='akademik.html'">
+        Akademik
+    </button>
+</div>
+
+        <!-- TERAKHIR DIAKSES -->
+        <div class="section-title">
+            <h2>Terakhir Diakses</h2>
+        </div>
+
+        <div class="book-row">
+
+          <a href="baca.html" class="book-link">
+    <div class="book-card">
+        <div class="book-cover">
+            <img src="images/siriway-warry.jpg" alt="Siriway Warry">
+        </div>
+
+        <div class="book-info">
+            <h3>Siriway Warry</h3>
+            <p>Cerita rakyat dari Papua yang mengenalkan kekayaan budaya dan tradisi masyarakat Papua.</p>
+            <span id="siriwayProgressText">0%</span>
+<div class="progress">
+    <div id="siriwayProgressBar"></div>
+</div>
+        </div>
+    </div>
+</a>
+
+
+           <div class="book-card">
+    <div class="book-cover">
+        <img src="images/filosofi-teras.jpeg" alt="Filosofi Teras">
+    </div>
+
+    <div class="book-info">
+        <h3>Filosofi Teras</h3>
+        <p>Buku tentang filsafat Stoisisme yang mengajak pembaca memahami emosi dan menghadapi kehidupan dengan lebih bijaksana.</p>
+
+        <span>35%</span>
+
+        <div class="progress">
+            <div style="width: 35%;"></div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+       <!-- REKOMENDASI -->
+<div class="section-title">
+    <h2>Rekomendasi</h2>
+</div>
+
+<div class="recommend-row">
+
+    <!-- SIRIWAY WARRY -->
+    <a href="detail.html" class="recommend-link">
+        <div class="recommend-card">
+            <div class="recommend-cover">
+                <img src="images/siriway-warry.jpg" alt="Siriway Warry">
+            </div>
+            <div class="recommend-info">
+                <h3>Siriway Warry</h3>
+                <p>Cerita Rakyat</p>
+            </div>
+        </div>
+    </a>
+
+    <!-- FILOSOFI TERAS -->
+    <div class="recommend-card">
+        <div class="recommend-cover">
+            <img src="images/filosofi-teras.jpeg" alt="Filosofi Teras">
+        </div>
+        <div class="recommend-info">
+            <h3>Filosofi Teras</h3>
+            <p>Pengembangan Diri</p>
+        </div>
+    </div>
+
+    <!-- LASKAR PELANGI -->
+    <div class="recommend-card">
+        <div class="recommend-cover">
+            <img src="images/laskar-pelangi.jpeg" alt="Laskar Pelangi">
+        </div>
+        <div class="recommend-info">
+            <h3>Laskar Pelangi</h3>
+            <p>Novel Inspiratif</p>
+        </div>
+    </div>
+
+    <!-- BUMI -->
+    <div class="recommend-card">
+        <div class="recommend-cover">
+            <img src="images/bumi.jpeg" alt="Bumi">
+        </div>
+        <div class="recommend-info">
+            <h3>Bumi</h3>
+            <p>Novel Fantasi</p>
+        </div>
+    </div>
+
+</div>
+
+
+        <!-- BOTTOM NAVIGATION -->
+        <div class="bottom-nav">
+
+    <div class="nav-item active-nav">
+        <div class="nav-icon">⌂</div>
+        <span>Beranda</span>
+    </div>
+
+    <a href="./linimasa.html" class="nav-item">
+        <div class="nav-icon">✥</div>
+        <span>Linimasa</span>
+    </a>
+
+    <div class="nav-item" onclick="window.location.href='pencarian.html'">
+    <div class="nav-icon">⌕</div>
+    <span>Pencarian</span>
+</div>
+
+    <a href="./profil.html" class="nav-item">
+        <div class="nav-icon">●</div>
+        <span>Profil</span>
+    </a>
+
+</div>
+
+        </div>
+
+    </div>
+<script>
+let currentSlide = 0;
+
+const slider = document.getElementById("bannerSlider");
+const slides = document.querySelectorAll(".banner-slide");
+const dots = document.querySelectorAll(".banner-dots .dot");
+
+function showSlide(index) {
+    currentSlide = index;
+
+    
+        slider.style.transform =
+    `translateX(-${index * (100 / 3)}%)`;
+    
+    dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === index);
+    });
+}
+
+setInterval(() => {
+    showSlide((currentSlide + 1) % slides.length);
+}, 4000);
+</script>
+<script>
+function updateSiriwayProgress() {
+    const savedProgress = localStorage.getItem("siriwayProgress") || 0;
+
+    document.getElementById("siriwayProgressText").textContent =
+        savedProgress + "%";
+
+    document.getElementById("siriwayProgressBar").style.width =
+        savedProgress + "%";
+}
+
+window.addEventListener("pageshow", updateSiriwayProgress);
+</script>
+<script></script>
+<script>
+const homeBooks = [
+    {
+        title: "Siriway Warry",
+        author: "Esther Embram",
+        cover: "images/siriway-warry.jpg",
+        link: "detail.html"
+    },
+    {
+        title: "Statistik Pendidikan",
+        author: "",
+        cover: "images/statistik-pendidikan.jpeg",
+        link: "detail-statistik.html"
+    },
+    {
+        title: "Majalah Jendela",
+        author: "Redaksi Jendela",
+        cover: "images/jendela.jpeg",
+        link: "detail-majalah.html"
+    },
+    {
+        title: "Filosofi Teras",
+        author: "",
+        cover: "images/filosofi-teras.jpeg",
+        link: ""
+    },
+    {
+        title: "Laskar Pelangi",
+        author: "",
+        cover: "images/laskar-pelangi.jpeg",
+        link: ""
+    },
+    {
+        title: "Bumi",
+        author: "",
+        cover: "images/bumi.jpeg",
+        link: ""
+    },
+    {
+        title: "Metode Penelitian",
+        author: "Dr. Mochammad Cholik, M.Pd",
+        cover: "images/metode-penelitian.jpeg",
+        link: ""
+    },
+    {
+        title: "Manajemen Pemasaran",
+        author: "Dr. Achmad Rizal, S.Pi., M.Si",
+        cover: "images/manajemen-pemasaran.jpeg",
+        link: ""
+    },
+    {
+        title: "Media Pembelajaran Inklusif",
+        author: "Cahaya Dewi, M.Pd",
+        cover: "images/media-pembelajaran.jpeg",
+        link: ""
+    }
+];
+
+const homeSearchInput = document.getElementById("homeSearchInput");
+const homeSearchResults = document.getElementById("homeSearchResults");
+const homeSearchButton = document.getElementById("homeSearchButton");
+
+function searchHomeBooks() {
+    const query = homeSearchInput.value.trim().toLowerCase();
+
+    if (query === "") {
+        homeSearchResults.innerHTML = "";
+        homeSearchResults.classList.remove("show");
+        return;
+    }
+
+    const results = homeBooks.filter(book =>
+        (book.title + " " + book.author).toLowerCase().includes(query)
+    );
+
+    homeSearchResults.classList.add("show");
+
+    if (results.length === 0) {
+        homeSearchResults.innerHTML = `
+            <div class="home-search-empty">
+                Buku tidak ditemukan.
+            </div>
+        `;
+        return;
+    }
+
+    homeSearchResults.innerHTML = results.map(book => {
+        const content = `
+            <img src="${book.cover}" alt="${book.title}">
+            <div>
+                <h4>${book.title}</h4>
+                <p>${book.author || "Koleksi E-Perpus UM"}</p>
+            </div>
+        `;
+
+        if (book.link) {
+            return `
+                <a href="${book.link}" class="home-search-item">
+                    ${content}
+                </a>
+            `;
+        }
+
+        return `
+            <div class="home-search-item">
+                ${content}
+            </div>
+        `;
+    }).join("");
+}
+
+homeSearchInput.addEventListener("input", searchHomeBooks);
+homeSearchButton.addEventListener("click", searchHomeBooks);
+
+document.addEventListener("click", function(event) {
+    if (!event.target.closest(".search-area")) {
+        homeSearchResults.classList.remove("show");
+    }
+});
+</script>
+<script>
+const homeBooks = [
+    {
+        title: "Siriway Warry",
+        author: "Esther Embram",
+        cover: "images/siriway-warry.jpg",
+        link: "detail.html"
+    },
+    {
+        title: "Filosofi Teras",
+        author: "Pengembangan Diri",
+        cover: "images/filosofi-teras.jpeg",
+        link: ""
+    },
+    {
+        title: "Laskar Pelangi",
+        author: "Novel Inspiratif",
+        cover: "images/laskar-pelangi.jpeg",
+        link: ""
+    },
+    {
+        title: "Bumi",
+        author: "Novel Fantasi",
+        cover: "images/bumi.jpeg",
+        link: ""
+    },
+    {
+        title: "Statistik Pendidikan",
+        author: "Buku Akademik",
+        cover: "images/statistik-pendidikan.jpeg",
+        link: "detail-statistik.html"
+    },
+    {
+        title: "Majalah Jendela",
+        author: "Redaksi Jendela",
+        cover: "images/jendela.jpeg",
+        link: "detail-majalah.html"
+    },
+    {
+        title: "Metode Penelitian",
+        author: "Dr. Mochammad Cholik, M.Pd",
+        cover: "images/metode-penelitian.jpeg",
+        link: ""
+    },
+    {
+        title: "Manajemen Pemasaran",
+        author: "Dr. Achmad Rizal, S.Pi., M.Si",
+        cover: "images/manajemen-pemasaran.jpeg",
+        link: ""
+    },
+    {
+        title: "Media Pembelajaran Inklusif",
+        author: "Cahaya Dewi, M.Pd",
+        cover: "images/media-pembelajaran.jpeg",
+        link: ""
+    }
+];
+
+const homeSearchInput = document.getElementById("homeSearchInput");
+const homeSearchResults = document.getElementById("homeSearchResults");
+const homeSearchButton = document.getElementById("homeSearchButton");
+
+function searchHomeBooks() {
+    const query = homeSearchInput.value.trim().toLowerCase();
+
+    if (!query) {
+        homeSearchResults.innerHTML = "";
+        homeSearchResults.classList.remove("show");
+        return;
+    }
+
+    const results = homeBooks.filter(book =>
+        (book.title + " " + book.author).toLowerCase().includes(query)
+    );
+
+    homeSearchResults.classList.add("show");
+
+    if (results.length === 0) {
+        homeSearchResults.innerHTML = `
+            <div class="home-search-empty">
+                Buku tidak ditemukan.
+            </div>
+        `;
+        return;
+    }
+
+    homeSearchResults.innerHTML = results.map(book => {
+        const itemContent = `
+            <img src="${book.cover}" alt="${book.title}">
+            <div>
+                <h4>${book.title}</h4>
+                <p>${book.author}</p>
+            </div>
+        `;
+
+        if (book.link) {
+            return `
+                <a href="${book.link}" class="home-search-item">
+                    ${itemContent}
+                </a>
+            `;
+        }
+
+        return `
+            <div class="home-search-item">
+                ${itemContent}
+            </div>
+        `;
+    }).join("");
+}
+
+homeSearchInput.addEventListener("input", searchHomeBooks);
+homeSearchButton.addEventListener("click", searchHomeBooks);
+
+document.addEventListener("click", function(event) {
+    if (!event.target.closest(".search-area")) {
+        homeSearchResults.classList.remove("show");
+    }
+});
+</script>
+<script>
+const userName = localStorage.getItem('eperpusUserName');
+
+if (userName) {
+    document.getElementById('profileInitial').textContent = userName.charAt(0).toUpperCase();
+    document.getElementById('profileName').textContent = userName;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>E-Perpus UM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="login-box">
+        <h1>E-Perpus</h1>
+        <p>E-Perpustakaan UM</p>
+
+        <form id="nameForm">
+            <label for="userName">Nama Pengguna</label>
+            <input
+                type="text"
+                id="userName"
+                placeholder="Masukkan nama kamu"
+                required
+            >
+
+            <button type="submit">Masuk ke Perpustakaan</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('nameForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('userName').value.trim();
+
+            if (!name) return;
+
+            localStorage.setItem('eperpusUserName', name);
+            window.location.href = 'home.html';
+        });
+    </script>
+
+</body>
+</html>

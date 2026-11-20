@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Koleksi - E-Perpus UM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="collection-body">
+
+<div class="collection-page">
+
+    <div class="collection-header">
+    <a href="profil.html" class="back-button">←</a>
+    <h1>Koleksi</h1>
+</div>
+
+    <div class="collection-summary">
+    <div>
+        <strong id="totalKoleksi">0</strong>
+        <span>Total Koleksi</span>
+    </div>
+
+    <div>
+        <strong id="jumlahMajalah">0</strong>
+        <span>Majalah</span>
+    </div>
+
+    <div>
+        <strong id="jumlahAkademik">0</strong>
+        <span>Akademik</span>
+    </div>
+
+    <div>
+        <strong id="jumlahNonakademik">0</strong>
+        <span>Nonakademik</span>
+    </div>
+</div>
+
+    <div class="collection-search">
+        <input type="text" placeholder="Cari koleksi">
+    </div>
+
+    <div class="collection-filter">
+        <button class="active-collection">Semua</button>
+        <button>Majalah</button>
+        <button>Akademik</button>
+        <button>Nonakademik</button>
+    </div>
+
+    <div class="collection-list" id="collectionList">
+
+        <div class="collection-book">
+            <div class="collection-cover">
+                MEDIA<br>
+                PEMBELAJARAN<br>
+                INKLUSIF
+            </div>
+
+            <div>
+                <h3>Media Pembelajaran Inklusif</h3>
+                <p>Cahaya Dewi M.Pd</p>
+            </div>
+        </div>
+
+        <div class="collection-book">
+            <div class="collection-cover">
+                MANAJEMEN<br>
+                PEMASARAN
+            </div>
+
+            <div>
+                <h3>Manajemen Pemasaran di Era Masyarakat Industri 4.0</h3>
+                <p>Dr. Achmad Rizal, S.Pi., M.Si</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+let filterAktif = "Semua";
+
+function tampilkanKoleksi(kategori = filterAktif) {
+    const collectionList = document.getElementById("collectionList");
+
+    let koleksi = JSON.parse(
+        localStorage.getItem("koleksiBuku")
+    ) || [];
+
+    filterAktif = kategori;
+
+    collectionList.innerHTML = "";
+
+    // Filter berdasarkan kategori
+    const bukuDitampilkan = kategori === "Semua"
+        ? koleksi
+        : koleksi.filter(buku => buku.kategori === kategori);
+
+    bukuDitampilkan.forEach((buku) => {
+        const item = document.createElement("div");
+        item.className = "collection-book";
+        item.style.cursor = "pointer";
+
+        item.addEventListener("click", function() {
+            window.location.href = buku.fileBaca;
+        });
+
+        item.innerHTML = `
+            <div class="collection-cover">
+                <img src="${buku.cover}" alt="${buku.judul}">
+            </div>
+
+            <div class="collection-info">
+                <h3>${buku.judul}</h3>
+                <p>${buku.genre}</p>
+                <p>Penulis: ${buku.penulis}</p>
+                <span class="saved-badge">Tersimpan</span>
+                <div class="file-info">
+                    ${buku.format} · ${buku.halaman} halaman
+                </div>
+            </div>
+
+            <button class="collection-menu" type="button">⋮</button>
+        `;
+
+        const menuButton = item.querySelector(".collection-menu");
+
+        menuButton.addEventListener("click", function(event) {
+            event.stopPropagation();
+
+            const menuLama = item.querySelector(".collection-dropdown");
+
+            if (menuLama) {
+                menuLama.remove();
+                return;
+            }
+
+            document.querySelectorAll(".collection-dropdown").forEach(menu => {
+                menu.remove();
+            });
+
+            const menu = document.createElement("div");
+            menu.className = "collection-dropdown";
+
+            menu.innerHTML = `
+                <button class="detail-option">Detail buku</button>
+                <button class="delete-option">Hapus dari koleksi</button>
+            `;
+
+            item.appendChild(menu);
+
+            menu.querySelector(".detail-option").addEventListener("click", function(event) {
+                event.stopPropagation();
+
+                // Pastikan halaman detail sesuai dengan nama file
+                if (buku.id === "majalah-jendela-66") {
+                    window.location.href = "detail-majalah.html";
+                } else {
+                    window.location.href = buku.detailPage || "detail.html";
+                }
+            });
+
+            menu.querySelector(".delete-option").addEventListener("click", function(event) {
+                event.stopPropagation();
+                tampilkanKonfirmasiHapus(buku.id);
+            });
+        });
+
+        collectionList.appendChild(item);
+    });
+
+    // Perbarui jumlah koleksi
+    document.getElementById("totalKoleksi").textContent = koleksi.length;
+
+    document.getElementById("jumlahMajalah").textContent =
+        koleksi.filter(b => b.kategori === "Majalah").length;
+
+    document.getElementById("jumlahAkademik").textContent =
+        koleksi.filter(b => b.kategori === "Akademik").length;
+
+    document.getElementById("jumlahNonakademik").textContent =
+        koleksi.filter(b => b.kategori === "Nonakademik").length;
+
+    // Tandai filter yang sedang aktif
+    document.querySelectorAll(".collection-filter button").forEach(button => {
+        button.classList.toggle(
+            "active-collection",
+            button.textContent.trim() === kategori
+        );
+    });
+}
+
+// Fungsi klik filter kategori
+document.querySelectorAll(".collection-filter button").forEach(button => {
+    button.addEventListener("click", function() {
+        tampilkanKoleksi(this.textContent.trim());
+    });
+});
+
+tampilkanKoleksi();
+
+let idBukuAkanDihapus = null;
+
+function tampilkanKonfirmasiHapus(id) {
+    idBukuAkanDihapus = id;
+    document.getElementById("confirmDelete").style.display = "flex";
+}
+
+function tutupKonfirmasi() {
+    document.getElementById("confirmDelete").style.display = "none";
+    idBukuAkanDihapus = null;
+}
+
+function hapusBuku() {
+    let koleksi = JSON.parse(
+        localStorage.getItem("koleksiBuku")
+    ) || [];
+
+    koleksi = koleksi.filter(
+        buku => buku.id !== idBukuAkanDihapus
+    );
+
+    localStorage.setItem("koleksiBuku", JSON.stringify(koleksi));
+
+    tutupKonfirmasi();
+    tampilkanKoleksi();
+}
+</script>
+
+<div id="confirmDelete" class="confirm-overlay">
+    <div class="confirm-box">
+        <div class="confirm-icon">!</div>
+
+        <h3>Hapus dari Koleksi?</h3>
+
+        <p>Apakah kamu yakin ingin menghapus buku ini dari koleksi?</p>
+
+        <div class="confirm-buttons">
+            <button onclick="tutupKonfirmasi()">Batal</button>
+            <button onclick="hapusBuku()">Hapus</button>
+        </div>
+    </div>
+</div>
+<script></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Akun Saya - E-Perpus UM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="profile-body">
+
+    <div class="profile-page">
+
+        <!-- HEADER -->
+        <div class="profile-header">
+            <h1>Akun Saya</h1>
+        </div>
+
+        <!-- PROFIL USER -->
+        <div class="profile-user">
+            <div class="profile-avatar" id="profileInitial">A</div>
+            <div>
+                <h2 id="profileName">Pengguna</h2>
+<p>Pengguna E-Perpus UM</p>
+            </div>
+        </div>
+
+        <!-- MENU -->
+        <div class="profile-menu">
+
+            <a href="./profil_detail.html" class="profile-menu-item" style="text-decoration: none; color: inherit;">
+    <span class="menu-icon">👤</span>
+    <span>Profil</span>
+    <span class="menu-arrow">›</span>
+</a>
+
+            <a href="./riwayat.html" class="profile-menu-item">
+    <span class="menu-icon">📖</span><span>Riwayat Membaca</span><span class="menu-arrow">›</span>
+</a>
+
+            <a href="./koleksi.html" class="profile-menu-item">
+    <span class="menu-icon">🔖</span><span>Koleksi</span><span class="menu-arrow">›</span>
+</a>
+
+            <a href="./tentang.html" class="profile-menu-item">
+    <span class="menu-icon">ℹ️</span>
+    <span>Tentang kami</span>
+    <span class="menu-arrow">›</span>
+</a>
+
+        </div>
+
+       <!-- BOTTOM NAV -->
+        <div class="bottom-nav">
+
+            <a href="./home.html" class="nav-item">
+                <div class="nav-icon">⌂</div>
+                <span>Beranda</span>
+            </a>
+
+            <a href="./linimasa.html" class="nav-item">
+                <div class="nav-icon">✥</div>
+                <span>Linimasa</span>
+            </a>
+
+            <!-- Ubah dari <div> menjadi <a> agar bisa diklik menuju halaman pencarian -->
+            <a href="./pencarian.html" class="nav-item">
+                <div class="nav-icon">⌕</div>
+                <span>Pencarian</span>
+            </a>
+
+            <div class="nav-item active-nav">
+                <div class="nav-icon">●</div>
+                <span>Profil</span>
+            </div>
+
+        </div>
+
+    </div>
+<script></script>
+<script>
+const savedName = localStorage.getItem('eperpusUserName');
+
+if (savedName) {
+    document.getElementById('profileName').textContent = savedName;
+    document.getElementById('profileInitial').textContent = savedName.charAt(0).toUpperCase();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Linimasa - E-Perpus UM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="timeline-body">
+
+    <div class="timeline-page">
+
+        <!-- HEADER -->
+        <div class="timeline-header">
+            <h1>Linimasa</h1>
+        </div>
+
+        <!-- AKTIVITAS 1 -->
+        <div class="timeline-post">
+
+            <div class="timeline-user">
+                <div class="timeline-avatar">N</div>
+
+                <div class="timeline-user-info">
+                    <strong>Nadia Putri</strong>
+                    <span>Membaca buku</span>
+                </div>
+
+                <div class="timeline-date">
+                    21 Okt 2024 - 07:58
+                </div>
+            </div>
+
+            <div class="timeline-book">
+
+                <div class="timeline-cover">
+    <img src="images/metode-penelitian.jpeg" alt="Cover Metode Penelitian">
+</div>
+
+                <div class="timeline-book-info">
+                    <h2>Metode Penelitian</h2>
+                    <p>Dr. Mochammad Cholik, M.Pd</p>
+
+                    <div class="timeline-rating">
+                        ☆ ☆ ☆ ☆ ☆ <span>0,0</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="timeline-actions">
+                <span>♡</span>
+                <span>💬</span>
+                <span>↗</span>
+                <p>0 menyukai | 0 berkomentar</p>
+            </div>
+
+        </div>
+
+
+        <!-- AKTIVITAS 2 -->
+        <div class="timeline-post">
+
+            <div class="timeline-user">
+                <div class="timeline-avatar">D</div>
+
+                <div class="timeline-user-info">
+                    <strong>Dinda Maharani</strong>
+                    <span>Membaca buku</span>
+                </div>
+
+                <div class="timeline-date">
+                    15 Juli 2024 - 10:58
+                </div>
+            </div>
+
+            <div class="timeline-book">
+
+             <div class="timeline-cover">
+    <img src="images/manajemen-pemasaran.jpeg" alt="Cover Manajemen Pemasaran">
+</div>
+
+                <div class="timeline-book-info">
+                    <h2>Manajemen Pemasaran di Era Masyarakat Industri 4.0</h2>
+                    <p>Dr. Achmad Rizal, S.Pi., M.Si</p>
+
+                    <div class="timeline-rating">
+                        ☆ ☆ ☆ ☆ ☆ <span>0,0</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="timeline-actions">
+                <span>♡</span>
+                <span>💬</span>
+                <span>↗</span>
+                <p>0 menyukai | 0 berkomentar</p>
+            </div>
+
+        </div>
+
+
+        <!-- AKTIVITAS 3 -->
+        <div class="timeline-post">
+
+            <div class="timeline-user">
+                <div class="timeline-avatar">R</div>
+
+                <div class="timeline-user-info">
+                    <strong>Rizky Pratama</strong>
+                    <span>Membaca buku</span>
+                </div>
+
+                <div class="timeline-date">
+                    03 Mei 2024 - 13:06
+                </div>
+            </div>
+
+            <div class="timeline-book">
+
+            <div class="timeline-cover">
+    <img src="images/media-pembelajaran.jpeg" alt="Cover Media Pembelajaran Inklusif">
+</div>
+
+                <div class="timeline-book-info">
+                    <h2>Media Pembelajaran Inklusif</h2>
+                    <p>Cahaya Dewi M.Pd</p>
+
+                    <div class="timeline-rating">
+                        ☆ ☆ ☆ ☆ ☆ <span>0,0</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="timeline-actions">
+                <span>♡</span>
+                <span>💬</span>
+                <span>↗</span>
+                <p>0 menyukai | 0 berkomentar</p>
+            </div>
+
+        </div>
+
+<div id="dynamicTimeline"></div>
+        <!-- BOTTOM NAV -->
+        <div class="bottom-nav">
+
+            <a href="./home.html" class="nav-item">
+    <div class="nav-icon">⌂</div>
+    <span>Beranda</span>
+</a>
+
+            <div class="nav-item active-nav">
+                <div class="nav-icon">✥</div>
+                <span>Linimasa</span>
+            </div>
+
+           <a href="./pencarian.html" class="nav-item" style="text-decoration: none; color: white;">
+    <div class="nav-icon">⌕</div>
+    <span>Pencarian</span>
+</a>
+
+           <a href="./profil.html" class="nav-item">
+    <div class="nav-icon">●</div>
+    <span>Profil</span>
+</a>
+
+        </div>
+
+    </div>
+<script>
+const timelineReviews = JSON.parse(
+    localStorage.getItem("timelineReviews") || "[]"
+);
+
+const dynamicTimeline = document.getElementById("dynamicTimeline");
+
+function formatTanggalLengkap(tanggalStr) {
+    if (!tanggalStr) return "";
+    
+    // Jika data menyimpan tanggal sekaligus waktu (misal: "19/11/2026 14:35")
+    let partsWaktu = tanggalStr.split(" ");
+    let datePart = partsWaktu[0];
+    let timePart = partsWaktu[1] ? partsWaktu[1].substring(0, 5) : "";
+
+    let dateObj;
+    let parts = datePart.split(/[-/]/);
+    
+    if (parts.length === 3) {
+        if (parts[0].length === 4) {
+            dateObj = new Date(parts[0], parts[1] - 1, parts[2]);
+        } else {
+            dateObj = new Date(parts[2], parts[1] - 1, parts[0]);
+        }
+    } else {
+        dateObj = new Date(datePart);
+    }
+
+    if (isNaN(dateObj)) return tanggalStr;
+
+    const namaBulan = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agt", "Sep", "Okt", "Nov", "Des"];
+    let hari = String(dateObj.getDate()).padStart(2, '0');
+    let bulan = namaBulan[dateObj.getMonth()];
+    let tahun = dateObj.getFullYear();
+
+    let hasilTanggal = `${hari} ${bulan} ${tahun}`;
+    
+    // Jika ada data jam, tampilkan. Jika tidak, gunakan jam saat ini atau default.
+    if (timePart) {
+        return `${hasilTanggal} - ${timePart}`;
+    } else {
+        // Mengambil jam sistem saat ulasan dibuat atau jam sekarang agar ada format waktunya
+        let sekarang = new Date();
+        let jam = String(sekarang.getHours()).padStart(2, '0');
+        let menit = String(sekarang.getMinutes()).padStart(2, '0');
+        return `${hasilTanggal} - ${jam}:${menit}`;
+    }
+}
+
+timelineReviews.forEach((review) => {
+    const stars = "★".repeat(review.rating) + "☆".repeat(5 - review.rating);
+    const formattedDate = formatTanggalLengkap(review.tanggalSelesai);
+
+    dynamicTimeline.innerHTML += `
+    <div class="timeline-post">
+        <div class="timeline-user">
+            <div class="timeline-avatar">A</div>
+
+            <div class="timeline-user-info">
+                <strong>Aliffia</strong>
+                <span>Membaca buku</span>
+            </div>
+
+            <div class="timeline-date">
+                ${formattedDate}
+            </div>
+        </div>
+
+        <div class="timeline-book">
+            <div class="timeline-cover">
+                <img src="${review.cover}" alt="Cover ${review.judul}">
+            </div>
+
+            <div class="timeline-book-info">
+                <h2>${review.judul}</h2>
+                <p>${review.penulis || ""}</p>
+
+                <div class="timeline-rating">
+                    <span>${stars}</span>
+                    <span>${review.rating.toFixed(1)}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-actions">
+            <span>♡</span>
+            <span class="open-review" onclick="showReview('${review.id}')">💬</span>
+            <span>↗</span>
+            <p>0 menyukai | 1 berkomentar</p>
+        </div>
+    </div>
+`;
+});
+</script>
+<script>
+function showReview(id) {
+    const reviews = JSON.parse(localStorage.getItem("timelineReviews") || "[]");
+    const review = reviews.find(item => item.id === id);
+
+    if (!review) {
+        alert("Ulasan tidak ditemukan.");
+        return;
+    }
+
+    const modal = document.createElement("div");
+    modal.style.cssText = `
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,0.5);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        z-index:99999;
+        padding:20px;
+    `;
+
+    modal.innerHTML = `
+        <div style="
+            background:white;
+            width:100%;
+            max-width:350px;
+            padding:25px;
+            border-radius:18px;
+            position:relative;
+        ">
+            <button class="close-review" style="
+                position:absolute;
+                right:15px;
+                top:12px;
+                border:none;
+                background:none;
+                font-size:22px;
+                cursor:pointer;
+            ">×</button>
+
+            <h3 style="margin-top:5px;">Ulasan Aliffia</h3>
+
+            <div style="color:#f5a623;font-size:18px;margin:10px 0;">
+                ${"★".repeat(review.rating)}${"☆".repeat(5-review.rating)}
+                <span style="color:#555;font-size:14px;">${review.rating.toFixed(1)}</span>
+            </div>
+
+            <div style="
+                background:#f7f7fb;
+                padding:15px;
+                border-radius:10px;
+                color:#555;
+                font-style:italic;
+                line-height:1.6;
+            " id="reviewText"></div>
+        </div>
+    `;
+
+    modal.querySelector("#reviewText").textContent =
+        review.ulasan || "Tidak ada ulasan.";
+
+    modal.querySelector(".close-review").onclick = () => modal.remove();
+
+    modal.onclick = (e) => {
+        if (e.target === modal) modal.remove();
+    };
+
+    document.body.appendChild(modal);
+}
+</script>
+<script>
+function showReview(id) {
+    const reviews = JSON.parse(localStorage.getItem("timelineReviews") || "[]");
+    const review = reviews.find(item => item.id === id);
+
+    if (!review) {
+        alert("Ulasan tidak ditemukan.");
+        return;
+    }
+
+    const modal = document.createElement("div");
+    modal.style.cssText = `
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,0.5);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        z-index:99999;
+        padding:20px;
+    `;
+
+    modal.innerHTML = `
+        <div style="
+            background:white;
+            width:100%;
+            max-width:350px;
+            padding:25px;
+            border-radius:18px;
+            position:relative;
+        ">
+            <button class="close-review" style="
+                position:absolute;
+                right:15px;
+                top:12px;
+                border:none;
+                background:none;
+                font-size:22px;
+                cursor:pointer;
+            ">×</button>
+
+            <h3 style="margin-top:5px;">Ulasan Aliffia</h3>
+
+            <div style="color:#f5a623;font-size:18px;margin:10px 0;">
+                ${"★".repeat(review.rating)}${"☆".repeat(5-review.rating)}
+                <span style="color:#555;font-size:14px;">${review.rating.toFixed(1)}</span>
+            </div>
+
+            <div style="
+                background:#f7f7fb;
+                padding:15px;
+                border-radius:10px;
+                color:#555;
+                font-style:italic;
+                line-height:1.6;
+            " id="reviewText"></div>
+        </div>
+    `;
+
+    modal.querySelector("#reviewText").textContent =
+        review.ulasan || "Tidak ada ulasan.";
+
+    modal.querySelector(".close-review").onclick = () => modal.remove();
+
+    modal.onclick = (e) => {
+        if (e.target === modal) modal.remove();
+    };
+
+    document.body.appendChild(modal);
+}
+</script>
+<script>
+function showReview(id) {
+    const reviews = JSON.parse(localStorage.getItem("timelineReviews") || "[]");
+    const review = reviews.find(item => item.id === id);
+
+    if (!review) {
+        alert("Ulasan tidak ditemukan.");
+        return;
+    }
+
+    const modal = document.createElement("div");
+    modal.style.cssText = `
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,0.5);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        z-index:99999;
+        padding:20px;
+    `;
+
+    modal.innerHTML = `
+        <div style="
+            background:white;
+            width:100%;
+            max-width:350px;
+            padding:25px;
+            border-radius:18px;
+            position:relative;
+        ">
+            <button class="close-review" style="
+                position:absolute;
+                right:15px;
+                top:12px;
+                border:none;
+                background:none;
+                font-size:22px;
+                cursor:pointer;
+            ">×</button>
+
+            <h3 style="margin-top:5px;">Ulasan Aliffia</h3>
+
+            <div style="color:#f5a623;font-size:18px;margin:10px 0;">
+                ${"★".repeat(review.rating)}${"☆".repeat(5-review.rating)}
+                <span style="color:#555;font-size:14px;">${review.rating.toFixed(1)}</span>
+            </div>
+
+            <div style="
+                background:#f7f7fb;
+                padding:15px;
+                border-radius:10px;
+                color:#555;
+                font-style:italic;
+                line-height:1.6;
+            " id="reviewText"></div>
+        </div>
+    `;
+
+    modal.querySelector("#reviewText").textContent =
+        review.ulasan || "Tidak ada ulasan.";
+
+    modal.querySelector(".close-review").onclick = () => modal.remove();
+
+    modal.onclick = (e) => {
+        if (e.target === modal) modal.remove();
+    };
+
+    document.body.appendChild(modal);
+}
+</script>
+<script>
+function showReview(id) {
+    const reviews = JSON.parse(localStorage.getItem("timelineReviews") || "[]");
+    const review = reviews.find(item => item.id === id);
+
+    if (!review) {
+        alert("Ulasan tidak ditemukan.");
+        return;
+    }
+
+    const modal = document.createElement("div");
+    modal.style.cssText = `
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,0.5);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        z-index:99999;
+        padding:20px;
+    `;
+
+    modal.innerHTML = `
+        <div style="
+            background:white;
+            width:100%;
+            max-width:350px;
+            padding:25px;
+            border-radius:18px;
+            position:relative;
+        ">
+            <button class="close-review" style="
+                position:absolute;
+                right:15px;
+                top:12px;
+                border:none;
+                background:none;
+                font-size:22px;
+                cursor:pointer;
+            ">×</button>
+
+            <h3 style="margin-top:5px;">Ulasan Aliffia</h3>
+
+            <div style="color:#f5a623;font-size:18px;margin:10px 0;">
+                ${"★".repeat(review.rating)}${"☆".repeat(5-review.rating)}
+                <span style="color:#555;font-size:14px;">${review.rating.toFixed(1)}</span>
+            </div>
+
+            <div style="
+                background:#f7f7fb;
+                padding:15px;
+                border-radius:10px;
+                color:#555;
+                font-style:italic;
+                line-height:1.6;
+            " id="reviewText"></div>
+        </div>
+    `;
+
+    modal.querySelector("#reviewText").textContent =
+        review.ulasan || "Tidak ada ulasan.";
+
+    modal.querySelector(".close-review").onclick = () => modal.remove();
+
+    modal.onclick = (e) => {
+        if (e.target === modal) modal.remove();
+    };
+
+    document.body.appendChild(modal);
+}
+</script>
+<script>
+function showReview(id) {
+    const reviews = JSON.parse(localStorage.getItem("timelineReviews") || "[]");
+    const review = reviews.find(item => item.id === id);
+
+    if (!review) {
+        alert("Ulasan tidak ditemukan.");
+        return;
+    }
+
+    const modal = document.createElement("div");
+    modal.style.cssText = `
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,0.5);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        z-index:99999;
+        padding:20px;
+    `;
+
+    modal.innerHTML = `
+        <div style="
+            background:white;
+            width:100%;
+            max-width:350px;
+            padding:25px;
+            border-radius:18px;
+            position:relative;
+        ">
+            <button class="close-review" style="
+                position:absolute;
+                right:15px;
+                top:12px;
+                border:none;
+                background:none;
+                font-size:22px;
+                cursor:pointer;
+            ">×</button>
+
+            <h3 style="margin-top:5px;">Ulasan Aliffia</h3>
+
+            <div style="color:#f5a623;font-size:18px;margin:10px 0;">
+                ${"★".repeat(review.rating)}${"☆".repeat(5-review.rating)}
+                <span style="color:#555;font-size:14px;">${review.rating.toFixed(1)}</span>
+            </div>
+
+            <div style="
+                background:#f7f7fb;
+                padding:15px;
+                border-radius:10px;
+                color:#555;
+                font-style:italic;
+                line-height:1.6;
+            " id="reviewText"></div>
+        </div>
+    `;
+
+    modal.querySelector("#reviewText").textContent =
+        review.ulasan || "Tidak ada ulasan.";
+
+    modal.querySelector(".close-review").onclick = () => modal.remove();
+
+    modal.onclick = (e) => {
+        if (e.target === modal) modal.remove();
+    };
+
+    document.body.appendChild(modal);
+}
+</script>
+<script>
+function showReview(id) {
+    const reviews = JSON.parse(localStorage.getItem("timelineReviews") || "[]");
+    const review = reviews.find(item => item.id === id);
+
+    if (!review) {
+        alert("Ulasan tidak ditemukan.");
+        return;
+    }
+
+    const modal = document.createElement("div");
+    modal.style.cssText = `
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,0.5);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        z-index:99999;
+        padding:20px;
+    `;
+
+    modal.innerHTML = `
+        <div style="
+            background:white;
+            width:100%;
+            max-width:350px;
+            padding:25px;
+            border-radius:18px;
+            position:relative;
+        ">
+            <button class="close-review" style="
+                position:absolute;
+                right:15px;
+                top:12px;
+                border:none;
+                background:none;
+                font-size:22px;
+                cursor:pointer;
+            ">×</button>
+
+            <h3 style="margin-top:5px;">Ulasan Aliffia</h3>
+
+            <div style="color:#f5a623;font-size:18px;margin:10px 0;">
+                ${"★".repeat(review.rating)}${"☆".repeat(5-review.rating)}
+                <span style="color:#555;font-size:14px;">${review.rating.toFixed(1)}</span>
+            </div>
+
+            <div style="
+                background:#f7f7fb;
+                padding:15px;
+                border-radius:10px;
+                color:#555;
+                font-style:italic;
+                line-height:1.6;
+            " id="reviewText"></div>
+        </div>
+    `;
+
+    modal.querySelector("#reviewText").textContent =
+        review.ulasan || "Tidak ada ulasan.";
+
+    modal.querySelector(".close-review").onclick = () => modal.remove();
+
+    modal.onclick = (e) => {
+        if (e.target === modal) modal.remove();
+    };
+
+    document.body.appendChild(modal);
+}
+</script>
+<script>
+function showReview(id) {
+    const reviews = JSON.parse(localStorage.getItem("timelineReviews") || "[]");
+    const review = reviews.find(item => item.id === id);
+
+    if (!review) {
+        alert("Ulasan tidak ditemukan.");
+        return;
+    }
+
+    const modal = document.createElement("div");
+    modal.style.cssText = `
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,0.5);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        z-index:99999;
+        padding:20px;
+    `;
+
+    modal.innerHTML = `
+        <div style="
+            background:white;
+            width:100%;
+            max-width:350px;
+            padding:25px;
+            border-radius:18px;
+            position:relative;
+        ">
+            <button class="close-review" style="
+                position:absolute;
+                right:15px;
+                top:12px;
+                border:none;
+                background:none;
+                font-size:22px;
+                cursor:pointer;
+            ">×</button>
+
+            <h3 style="margin-top:5px;">Ulasan Aliffia</h3>
+
+            <div style="color:#f5a623;font-size:18px;margin:10px 0;">
+                ${"★".repeat(review.rating)}${"☆".repeat(5-review.rating)}
+                <span style="color:#555;font-size:14px;">${review.rating.toFixed(1)}</span>
+            </div>
+
+            <div style="
+                background:#f7f7fb;
+                padding:15px;
+                border-radius:10px;
+                color:#555;
+                font-style:italic;
+                line-height:1.6;
+            " id="reviewText"></div>
+        </div>
+    `;
+
+    modal.querySelector("#reviewText").textContent =
+        review.ulasan || "Tidak ada ulasan.";
+
+    modal.querySelector(".close-review").onclick = () => modal.remove();
+
+    modal.onclick = (e) => {
+        if (e.target === modal) modal.remove();
+    };
+
+    document.body.appendChild(modal);
+}
+</script>
+<script>
+function showReview(id) {
+    const reviews = JSON.parse(localStorage.getItem("timelineReviews") || "[]");
+    const review = reviews.find(item => item.id === id);
+
+    if (!review) {
+        alert("Ulasan tidak ditemukan.");
+        return;
+    }
+
+    const modal = document.createElement("div");
+
+    modal.style.cssText = `
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 99999;
+        padding: 20px;
+    `;
+
+    modal.innerHTML = `
+        <div style="
+            background: white;
+            width: 100%;
+            max-width: 350px;
+            padding: 25px;
+            border-radius: 18px;
+            position: relative;
+        ">
+            <button class="close-review" style="
+                position: absolute;
+                right: 15px;
+                top: 12px;
+                border: none;
+                background: none;
+                font-size: 22px;
+                cursor: pointer;
+            ">×</button>
+
+            <h3 style="margin-top: 5px;">Ulasan Aliffia</h3>
+
+            <div style="color: #f5a623; font-size: 18px; margin: 10px 0;">
+                ${"★".repeat(review.rating)}${"☆".repeat(5-review.rating)}
+                <span style="color: #555; font-size: 14px;">
+                    ${review.rating.toFixed(1)}
+                </span>
+            </div>
+
+            <div style="
+                background: #f7f7fb;
+                padding: 15px;
+                border-radius: 10px;
+                color: #555;
+                font-style: italic;
+                line-height: 1.6;
+            " id="reviewText"></div>
+        </div>
+    `;
+
+    modal.querySelector("#reviewText").textContent =
+        review.ulasan || "Tidak ada ulasan.";
+
+    modal.querySelector(".close-review").onclick = () => modal.remove();
+
+    modal.onclick = (e) => {
+        if (e.target === modal) {
+            modal.remove();
+        }
+    };
+
+    document.body.appendChild(modal);
+}
+</script>
+<script></script>
+<script>
+const userName = localStorage.getItem('eperpusUserName');
+if (userName) {
+    document.getElementById('timelineInitial').textContent = userName.charAt(0).toUpperCase();
+}
+</script>
+</body>
+</html>
